@@ -23,9 +23,11 @@ implementation:
       "--metadata", {inputPath: metadata},
       "--text-column", {inputValue: text_column},
       "--intent-column", {inputValue: intent_column},
-      "--output-paths", {outputPath: train_processed},
-      {outputPath: val_processed},
-      {outputPath: intent_mapping},
-      {outputPath: label_mapping},
-      {outputPath: preprocessing_metadata}
+      "--output-dir", "/data/output"
     ]
+    fileOutputs:
+      train_processed: "/data/output/train_processed.csv"
+      val_processed: "/data/output/val_processed.csv"
+      intent_mapping: "/data/output/intent_mapping.json"
+      label_mapping: "/data/output/label_mapping.csv"
+      preprocessing_metadata: "/data/output/preprocessing_metadata.json"
