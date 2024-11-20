@@ -22,12 +22,10 @@ implementation:
       "--val-data", {inputPath: val_data},
       "--metadata", {inputPath: metadata},
       "--text-column", {inputValue: text_column},
-      "--intent-column", {inputValue: intent_column}
-      "--output-dir", {outputPath: train_processed}, 
+      "--intent-column", {inputValue: intent_column},
+      "--output-paths", {outputPath: train_processed},
       {outputPath: val_processed},
       {outputPath: intent_mapping},
       {outputPath: label_mapping},
-      {outputPath: preprocessing_metadata} # Base output directory
-      
-      
+      {outputPath: preprocessing_metadata}
     ]
