@@ -1,9 +1,9 @@
 name: Text Preprocessor Component
 description: Component for preprocessing text data and encoding intents
 inputs:
-  - {name: train_data, type: Dataset}  # Output from Data Loader
-  - {name: val_data, type: Dataset}    # Output from Data Loader
-  - {name: metadata, type: String}     # Metadata from Data Loader
+  - {name: train_data, type: Dataset}  # From Data Loader output
+  - {name: val_data, type: Dataset}    # From Data Loader output
+  - {name: metadata, type: String}     # From Data Loader output
   - {name: text_column, type: String, optional: true}
   - {name: intent_column, type: String, optional: true}
   - {name: processed_text_column, type: String, optional: true}
@@ -11,18 +11,17 @@ outputs:
   - {name: train_processed, type: Dataset}
   - {name: val_processed, type: Dataset}
   - {name: intent_mapping, type: String}
-  - {name: label_mapping, type: Dataset}
   - {name: preprocessing_metadata, type: String}
 implementation:
   container:
-    image: ravidocker189/preprocessingdata:2
+    image: ravidocker189/preprocessingdata:3
     command: ["python"]
     args: [
-      -u, preprocessor.py,
+      -u, preprocess.py,
       "--train-data", {inputPath: train_data},
       "--val-data", {inputPath: val_data},
       "--metadata", {inputPath: metadata},
-      "--output-dir", {outputPath: train_processed},  # Base output directory
+      "--output-dir", {outputPath: train_processed},
       "--text-column", {inputValue: text_column},
       "--intent-column", {inputValue: intent_column},
       "--processed-text-column", {inputValue: processed_text_column}
