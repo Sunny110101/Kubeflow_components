@@ -1,10 +1,10 @@
 name: Intent Model Trainer Component
 description: Component for training intent classification model using BERT
 inputs:
-  - {name: train_data, type: Dataset}  # Processed training data
-  - {name: val_data, type: Dataset}    # Processed validation data
-  - {name: preprocessing_metadata, type: String}  # Preprocessor metadata
-  - {name: intent_mapping, type: String}  # Intent mapping from preprocessor
+  - {name: train_data, type: Dataset}
+  - {name: val_data, type: Dataset}
+  - {name: preprocessing_metadata, type: String}
+  - {name: intent_mapping, type: String}
   - {name: text_column, type: String, optional: true}
   - {name: intent_column, type: String, optional: true}
   - {name: model_name, type: String, optional: true}
