@@ -19,19 +19,30 @@ implementation:
   container:
     image: ravidocker189/model_trainer:latest3
     command: ["python"]
-    args: [
-      -u, model_trainer.py,
-      "--train-data", {inputPath: train_data},
-      "--val-data", {inputPath: val_data},
-      "--preprocessing-metadata", {inputPath: preprocessing_metadata},
-      "--intent-mapping", {inputPath: intent_mapping},
-      "--model-name", {inputValue: model_name},
-      "--batch-size", {inputValue: batch_size},
-      "--epochs", {inputValue: epochs},
-      "--learning-rate", {inputValue: learning_rate},
-      "--dropout", {inputValue: dropout},
-      "--hidden-size", {inputValue: hidden_size},
-      "--output-paths", {outputPath: model},
-      {outputPath: training_metadata},
-      {outputPath: training_logs}
-    ]
+    args: 
+      - -u
+      - model_trainer.py
+      - --train-data
+      - {inputPath: train_data}
+      - --val-data
+      - {inputPath: val_data}
+      - --preprocessing-metadata
+      - {inputPath: preprocessing_metadata}
+      - --intent-mapping
+      - {inputPath: intent_mapping}
+      - --model-name
+      - {inputValue: model_name}
+      - --batch-size
+      - {inputValue: batch_size}
+      - --epochs
+      - {inputValue: epochs}
+      - --learning-rate
+      - {inputValue: learning_rate}
+      - --dropout
+      - {inputValue: dropout}
+      - --hidden-size
+      - {inputValue: hidden_size}
+      - --output-paths
+      - {outputPath: model}
+      - {outputPath: training_metadata}
+      - {outputPath: training_logs}
