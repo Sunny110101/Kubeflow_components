@@ -1,51 +1,37 @@
-name: intent_classification_training
-description: Trains an intent classification model using transformer-based architecture
-
+name: Intent Model Trainer Component
+description: Component for training intent classification model using preprocessed data
 inputs:
-  - {name: train_data, type: String, description: "Path to processed training data CSV file", required: true}
-  - {name: val_data, type: String, description: "Path to processed validation data CSV file", required: true}
-  - {name: preprocessing_metadata, type: String, description: "Path to preprocessing metadata JSON file", required: true}
-  - {name: intent_mapping, type: String, description: "Path to intent mapping JSON file", required: true}
-  - {name: model_name, type: String, description: "Pre-trained model name to use as base", default: "bert-base-uncased"}
-  - {name: batch_size, type: Integer, description: "Training batch size", default: 32}
-  - {name: epochs, type: Integer, description: "Number of training epochs", default: 10}
-  - {name: learning_rate, type: Float, description: "Learning rate for training", default: 0.00002}
-  - {name: dropout, type: Float, description: "Dropout rate for regularization", default: 0.5}
-  - {name: hidden_size, type: Integer, description: "Hidden layer size", default: 768}
-
+  - {name: train_processed, type: Dataset}     # From preprocessor
+  - {name: val_processed, type: Dataset}       # From preprocessor
+  - {name: preprocessing_metadata, type: String}  # From preprocessor
+  - {name: intent_mapping, type: String}         # From preprocessor
+  - {name: model_name, type: String, default: "bert-base-uncased", optional: true}
+  - {name: batch_size, type: Integer, default: 32, optional: true}
+  - {name: epochs, type: Integer, default: 10, optional: true}
+  - {name: learning_rate, type: Float, default: 0.00002, optional: true}
+  - {name: dropout, type: Float, default: 0.5, optional: true}
+  - {name: hidden_size, type: Integer, default: 768, optional: true}
 outputs:
-  - {name: model_path, type: String, description: "Path where trained model will be saved"}
-  - {name: training_metadata, type: String, description: "Path where training metadata will be saved"}
-  - {name: training_logs, type: String, description: "Path where training logs will be saved"}
-
+  - {name: model, type: Model}            # Trained model in .pb format
+  - {name: training_metadata, type: String}  # Training configuration and results
+  - {name: training_logs, type: String}      # Detailed training logs
 implementation:
   container:
-    image: ravidocker189/model_training:latest3
-    command: ["python3"]
+    image: ravidocker189/intentmodel:1
+    command: ["python"]
     args: [
-      -u,model_training.py,
-      "--train-data",
-      {inputValue: train_data},
-      "--val-data",
-      {inputValue: val_data},
-      "--preprocessing-metadata",
-      {inputValue: preprocessing_metadata},
-      "--intent-mapping",
-      {inputValue: intent_mapping},
-      "--model-name",
-      {inputValue: model_name},
-      "--batch-size",
-      {inputValue: batch_size},
-      "--epochs",
-      {inputValue: epochs},
-      "--learning-rate",
-      {inputValue: learning_rate},
-      "--dropout",
-      {inputValue: dropout},
-      "--hidden-size",
-      {inputValue: hidden_size},
-      "--output-paths",
-      {outputPath: model_path},
+      -u, model_trainer.py,
+      "--train-data", {inputPath: train_processed},
+      "--val-data", {inputPath: val_processed},
+      "--preprocessing-metadata", {inputPath: preprocessing_metadata},
+      "--intent-mapping", {inputPath: intent_mapping},
+      "--model-name", {inputValue: model_name},
+      "--batch-size", {inputValue: batch_size},
+      "--epochs", {inputValue: epochs},
+      "--learning-rate", {inputValue: learning_rate},
+      "--dropout", {inputValue: dropout},
+      "--hidden-size", {inputValue: hidden_size},
+      "--output-paths", {outputPath: model},
       {outputPath: training_metadata},
       {outputPath: training_logs}
     ]
