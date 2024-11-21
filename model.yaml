@@ -1,10 +1,10 @@
 name: Intent Model Trainer
-description: Component for training intent classification model using BERT
+description: Component for training intent classification model
 inputs:
-  - {name: train_processed, type: Dataset}          # Processed training data from preprocessor
-  - {name: val_processed, type: Dataset}            # Processed validation data from preprocessor
-  - {name: preprocessing_metadata, type: String}     # Metadata from preprocessor
-  - {name: intent_mapping, type: String}            # Intent mapping from preprocessor
+  - {name: train_processed, type: Dataset}
+  - {name: val_processed, type: Dataset}
+  - {name: preprocessing_metadata, type: String}
+  - {name: intent_mapping, type: String}
   - {name: model_name, type: String, default: "bert-base-uncased"}
   - {name: batch_size, type: Integer, default: 32}
   - {name: epochs, type: Integer, default: 10}
@@ -12,9 +12,9 @@ inputs:
   - {name: dropout, type: Float, default: 0.5}
   - {name: hidden_size, type: Integer, default: 768}
 outputs:
-  - {name: model, type: Model}                      # Trained model in ONNX format (.pb)
-  - {name: training_metadata, type: String}         # Training configuration and results
-  - {name: training_logs, type: String}             # Detailed training logs
+  - {name: model, type: Model}
+  - {name: training_metadata, type: String}
+  - {name: training_logs, type: String}
 implementation:
   container:
     image: ravidocker189/final_model:4
