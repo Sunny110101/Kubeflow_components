@@ -17,7 +17,7 @@ outputs:
   - {name: training_logs, type: String}
 implementation:
   container:
-    image: ravidocker189/model_trainer:latest2
+    image: ravidocker189/model_trainer:latest3
     command: ["python"]
     args: [
       -u, trainer.py,
