@@ -12,7 +12,7 @@ inputs:
   - {name: dropout, type: Float, default: 0.5}
   - {name: hidden_size, type: Integer, default: 768}
 outputs:
-  - {name: model, type: Model}
+  - {name: model, type: File}
   - {name: training_metadata, type: String}
   - {name: training_logs, type: String}
 implementation:
