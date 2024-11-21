@@ -1,28 +1,19 @@
-name: Intent Model Trainer
+name: Intent Model Trainer Component
 description: Component for training intent classification model using BERT
 inputs:
-  - {name: train_data, type: Dataset}    # Output from Preprocessor
-  - {name: val_data, type: Dataset}      # Output from Preprocessor
-  - {name: preprocessing_metadata, type: String}  # Metadata from Preprocessor
-  - {name: intent_mapping, type: String}  # Intent mapping from Preprocessor
-  - {name: model_name, type: String, default: "bert-base-uncased"}
-  - {name: text_column, type: String, default: "processed_query"}
-  - {name: intent_column, type: String, default: "intent_encoded"}
-  - {name: batch_size, type: Integer, default: 32}
-  - {name: learning_rate, type: Float, default: 0.00002}
-  - {name: epochs, type: Integer, default: 10}
-  - {name: dropout_rate, type: Float, default: 0.5}
-  - {name: hidden_size, type: Integer, default: 768}
-  - {name: freeze_layers, type: Integer, default: 6}
-  - {name: weight_decay, type: Float, default: 0.01}
-  - {name: label_smoothing, type: Float, default: 0.1}
-  - {name: max_length, type: Integer, default: 128}
-
+  - {name: train_data, type: Dataset}  # Processed training data
+  - {name: val_data, type: Dataset}    # Processed validation data
+  - {name: preprocessing_metadata, type: String}  # Preprocessor metadata
+  - {name: intent_mapping, type: String}  # Intent mapping from preprocessor
+  - {name: text_column, type: String, optional: true}
+  - {name: intent_column, type: String, optional: true}
+  - {name: model_name, type: String, optional: true}
+  - {name: batch_size, type: Integer, optional: true}
+  - {name: epochs, type: Integer, optional: true}
 outputs:
-  - {name: model, type: Model}
+  - {name: trained_model, type: Model}
   - {name: training_metadata, type: String}
   - {name: training_logs, type: String}
-
 implementation:
   container:
     image: ravidocker189/model_trainer:latest
@@ -33,21 +24,14 @@ implementation:
       "--val-data", {inputPath: val_data},
       "--preprocessing-metadata", {inputPath: preprocessing_metadata},
       "--intent-mapping", {inputPath: intent_mapping},
-      "--model-name", {inputValue: model_name},
       "--text-column", {inputValue: text_column},
       "--intent-column", {inputValue: intent_column},
+      "--model-name", {inputValue: model_name},
       "--batch-size", {inputValue: batch_size},
-      "--learning-rate", {inputValue: learning_rate},
       "--epochs", {inputValue: epochs},
-      "--dropout-rate", {inputValue: dropout_rate},
-      "--hidden-size", {inputValue: hidden_size},
-      "--freeze-layers", {inputValue: freeze_layers},
-      "--weight-decay", {inputValue: weight_decay},
-      "--label-smoothing", {inputValue: label_smoothing},
-      "--max-length", {inputValue: max_length},
-      "--output-dir", "/model"
+      "--output-dir", "/model/output"
     ]
     fileOutputs:
-      model: "/model/intent_model.pb"
-      training_metadata: "/model/training_metadata.json"
-      training_logs: "/model/training.log"
+      trained_model: "/model/output/intent_model.pb"
+      training_metadata: "/model/output/training_metadata.json"
+      training_logs: "/model/output/training.log"
