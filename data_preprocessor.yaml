@@ -6,6 +6,7 @@ inputs:
   - {name: metadata, type: String}     # Metadata from Data Loader
   - {name: text_column, type: String, optional: true}
   - {name: intent_column, type: String, optional: true}
+  - {name: processed_text_column, type: String, optional: true}
 outputs:
   - {name: train_processed, type: Dataset}
   - {name: val_processed, type: Dataset}
@@ -23,11 +24,10 @@ implementation:
       "--metadata", {inputPath: metadata},
       "--text-column", {inputValue: text_column},
       "--intent-column", {inputValue: intent_column},
-      "--output-dir", "/data/output"
+      "--processed-text-column", {inputValue: processed_text_column},
+      "--output-paths", {outputPath: train_processed},
+      {outputPath: val_processed},
+      {outputPath: intent_mapping},
+      {outputPath: label_mapping},
+      {outputPath: preprocessing_metadata}
     ]
-    fileOutputs:
-      train_processed: "/data/output/train_processed.csv"
-      val_processed: "/data/output/val_processed.csv"
-      intent_mapping: "/data/output/intent_mapping.json"
-      label_mapping: "/data/output/label_mapping.csv"
-      preprocessing_metadata: "/data/output/preprocessing_metadata.json"
