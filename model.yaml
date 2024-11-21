@@ -19,9 +19,10 @@ outputs:
 implementation:
   container:
     image: ravidocker189/model_trainer:latest3
-    command: ["python3"]
+    command: [python3]
     args: [
-      -u, model_trainer.py,
+      "-u",
+      "model_trainer.py",
       "--train-data", {inputPath: train_data},
       "--val-data", {inputPath: val_data},
       "--preprocessing-metadata", {inputPath: preprocessing_metadata},
@@ -32,5 +33,5 @@ implementation:
       "--learning-rate", {inputValue: learning_rate},
       "--dropout", {inputValue: dropout},
       "--hidden-size", {inputValue: hidden_size},
-      "--output-paths", {outputPath: model},{outputPath: training_metadata},{outputPath: training_logs}
+      "--output-paths", {outputPath: model}, {outputPath: training_metadata}, {outputPath: training_logs}
     ]
