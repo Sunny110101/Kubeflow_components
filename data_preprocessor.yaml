@@ -15,7 +15,7 @@ outputs:
   - {name: preprocessing_metadata, type: String}
 implementation:
   container:
-    image: ravidocker189/preprocessingdata:8
+    image: ravidocker189/preprocessingdata:9
     command: ["python"]
     args: [
       -u, preprocessor.py,
