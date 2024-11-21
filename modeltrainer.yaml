@@ -20,7 +20,7 @@ implementation:
     image: ravidocker189/model_trainer:latest3
     command: ["python"]
     args: [
-      -u, trainer.py,
+      -u, model_trainer.py,
       "--train-data", {inputPath: train_data},
       "--val-data", {inputPath: val_data},
       "--preprocessing-metadata", {inputPath: preprocessing_metadata},
