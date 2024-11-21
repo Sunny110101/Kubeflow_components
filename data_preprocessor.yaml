@@ -1,9 +1,9 @@
 name: Text Preprocessor Component
 description: Component for preprocessing text data and encoding intents
 inputs:
-  - {name: train_data, type: Dataset}  # Output from Data Loader
-  - {name: val_data, type: Dataset}    # Output from Data Loader
-  - {name: metadata, type: String}     # Metadata from Data Loader
+  - {name: train_data, type: Dataset}
+  - {name: val_data, type: Dataset}
+  - {name: metadata, type: String}
   - {name: text_column, type: String, optional: true}
   - {name: intent_column, type: String, optional: true}
   - {name: processed_text_column, type: String, optional: true}
