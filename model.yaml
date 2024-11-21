@@ -1,26 +1,26 @@
-name: Intent Model Trainer Component
-description: Component for training intent classification model using preprocessed data
+name: Intent Model Trainer
+description: Component for training intent classification model
 inputs:
-  - {name: train_processed, type: Dataset}     # From preprocessor
-  - {name: val_processed, type: Dataset}       # From preprocessor
-  - {name: preprocessing_metadata, type: String}  # From preprocessor
-  - {name: intent_mapping, type: String}         # From preprocessor
-  - {name: model_name, type: String, default: "bert-base-uncased", optional: true}
-  - {name: batch_size, type: Integer, default: 32, optional: true}
-  - {name: epochs, type: Integer, default: 10, optional: true}
-  - {name: learning_rate, type: Float, default: 0.00002, optional: true}
-  - {name: dropout, type: Float, default: 0.5, optional: true}
-  - {name: hidden_size, type: Integer, default: 768, optional: true}
+  - {name: train_processed, type: Dataset}
+  - {name: val_processed, type: Dataset}
+  - {name: preprocessing_metadata, type: String}
+  - {name: intent_mapping, type: String}
+  - {name: model_name, type: String, default: "bert-base-uncased"}
+  - {name: batch_size, type: Integer, default: 32}
+  - {name: epochs, type: Integer, default: 10}
+  - {name: learning_rate, type: Float, default: 0.00002}
+  - {name: dropout, type: Float, default: 0.5}
+  - {name: hidden_size, type: Integer, default: 768}
 outputs:
-  - {name: model, type: Model}            # Trained model in .pb format
-  - {name: training_metadata, type: String}  # Training configuration and results
-  - {name: training_logs, type: String}      # Detailed training logs
+  - {name: model, type: Model}
+  - {name: training_metadata, type: String}
+  - {name: training_logs, type: String}
 implementation:
   container:
-    image: ravidocker189/intentmodel:1
-    command: ["python"]
+    image: push ravidocker189/final_model:4
+    command: ["python"3]
     args: [
-      -u, model_trainer.py,
+      -u,model_trainer.py,
       "--train-data", {inputPath: train_processed},
       "--val-data", {inputPath: val_processed},
       "--preprocessing-metadata", {inputPath: preprocessing_metadata},
@@ -31,7 +31,8 @@ implementation:
       "--learning-rate", {inputValue: learning_rate},
       "--dropout", {inputValue: dropout},
       "--hidden-size", {inputValue: hidden_size},
-      "--output-paths", {outputPath: model},
+      "--output-paths",
+      {outputPath: model},
       {outputPath: training_metadata},
       {outputPath: training_logs}
     ]
