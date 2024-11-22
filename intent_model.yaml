@@ -1,38 +1,52 @@
-name: Intent Model Trainer
-description: Component for training intent classification model
+name: Intent Classification Model Trainer
+description: Component for training an intent classification model using transformer architecture
 inputs:
-  - {name: train_processed, type: Dataset}
-  - {name: val_processed, type: Dataset}
-  - {name: preprocessing_metadata, type: String}
-  - {name: intent_mapping, type: String}
+  - {name: train_data, type: Dataset}            # Processed training data from preprocessor
+  - {name: val_data, type: Dataset}              # Processed validation data from preprocessor
+  - {name: preprocessing_metadata, type: String}  # Metadata from preprocessor
+  - {name: intent_mapping, type: String}         # Intent mapping from preprocessor
+  - {name: text_column, type: String, default: "processed_text"}
+  - {name: intent_column, type: String, default: "intent_encoded"}
   - {name: model_name, type: String, default: "bert-base-uncased"}
-  - {name: batch_size, type: Integer, default: 32}
-  - {name: epochs, type: Integer, default: 10}
-  - {name: learning_rate, type: Float, default: 0.00002}
+  # Model hyperparameters
   - {name: dropout, type: Float, default: 0.5}
   - {name: hidden_size, type: Integer, default: 768}
+  - {name: freeze_layers, type: Integer, default: 6}
+  - {name: weight_decay, type: Float, default: 0.01}
+  - {name: label_smoothing, type: Float, default: 0.1}
+  - {name: learning_rate, type: Float, default: 0.00001}
+  - {name: batch_size, type: Integer, default: 16}
+  - {name: max_length, type: Integer, default: 128}
+  - {name: epochs, type: Integer, default: 10}
+
 outputs:
-  - {name: model, type: File}
-  - {name: training_metadata, type: String}
-  - {name: training_logs, type: String}
+  - {name: model_artifacts, type: Directory}      # Directory containing saved model files
+  - {name: training_metadata, type: String}       # Training metadata and metrics
+  - {name: training_log, type: String}           # Training logs
+
 implementation:
   container:
-    image: ravidocker189/final_model:4
+    image: ravidocker189/intentmodel:4  # Replace with your actual docker image
     command: ["python"]
     args: [
-      -u,model_trainer.py,
-      "--train-data", {inputPath: train_processed},
-      "--val-data", {inputPath: val_processed},
+      -u, model_trainer.py,
+      "--train-data", {inputPath: train_data},
+      "--val-data", {inputPath: val_data},
       "--preprocessing-metadata", {inputPath: preprocessing_metadata},
       "--intent-mapping", {inputPath: intent_mapping},
+      "--text-column", {inputValue: text_column},
+      "--intent-column", {inputValue: intent_column},
       "--model-name", {inputValue: model_name},
-      "--batch-size", {inputValue: batch_size},
-      "--epochs", {inputValue: epochs},
-      "--learning-rate", {inputValue: learning_rate},
       "--dropout", {inputValue: dropout},
       "--hidden-size", {inputValue: hidden_size},
-      "--output-paths",
-      {outputPath: model},
-      {outputPath: training_metadata},
-      {outputPath: training_logs}
+      "--freeze-layers", {inputValue: freeze_layers},
+      "--weight-decay", {inputValue: weight_decay},
+      "--label-smoothing", {inputValue: label_smoothing},
+      "--learning-rate", {inputValue: learning_rate},
+      "--batch_size", {inputValue: batch_size},
+      "--max-length", {inputValue: max_length},
+      "--epochs", {inputValue: epochs},
+      "--output-dir", {outputPath: model_artifacts},
+      "--training-metadata", {outputPath: training_metadata},
+      "--training-log", {outputPath: training_log}
     ]
