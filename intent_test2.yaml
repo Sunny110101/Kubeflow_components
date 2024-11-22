@@ -7,7 +7,7 @@ inputs:
   - {name: intent_mapping, type: String}
   - {name: text_column, type: String, optional: true}
   - {name: intent_column, type: String, optional: true}
-  - {name: model_name, type: String, optional: true}
+  - {name: model_name, type: String, optional: true}  # This is correct
   - {name: dropout, type: Float, optional: true}
   - {name: hidden_size, type: Integer, optional: true}
   - {name: freeze_layers, type: Integer, optional: true}
@@ -17,12 +17,10 @@ inputs:
   - {name: batch_size, type: Integer, optional: true}
   - {name: max_length, type: Integer, optional: true}
   - {name: epochs, type: Integer, optional: true}
-
 outputs:
   - {name: model_artifacts, type: Directory}
   - {name: training_metadata, type: String}
   - {name: training_log, type: String}
-
 implementation:
   container:
     image: ravidocker189/intentmodel:11
@@ -35,7 +33,7 @@ implementation:
       "--intent-mapping", {inputPath: intent_mapping},
       "--text-column", {inputValue: text_column},
       "--intent-column", {inputValue: intent_column},
-      "--model-path", {inputValue: model_name},
+      "--model-name", {inputValue: model_name},  # Changed from model-path to model-name
       "--dropout", {inputValue: dropout},
       "--hidden-size", {inputValue: hidden_size},
       "--freeze-layers", {inputValue: freeze_layers},
