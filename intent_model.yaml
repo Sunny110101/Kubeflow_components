@@ -27,9 +27,7 @@ outputs:
 implementation:
   container:
     image: ravidocker189/intentmodel:4  # Replace with your actual docker image
-    command: ["python"]
-    args: [
-      -u, model_trainer.py,
+    command: [model_trainer.py,
       "--train-data", {inputPath: train_data},
       "--val-data", {inputPath: val_data},
       "--preprocessing-metadata", {inputPath: preprocessing_metadata},
