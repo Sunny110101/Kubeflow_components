@@ -27,7 +27,7 @@ implementation:
   container:
     image: ravidocker189/intentmodel:10
     command: [
-      "model_trainer.py",
+      -u,model_trainer.py,
       "--train-data", {inputPath: train_data},
       "--val-data", {inputPath: val_data},
       "--preprocessing-metadata", {inputPath: preprocessing_metadata},
