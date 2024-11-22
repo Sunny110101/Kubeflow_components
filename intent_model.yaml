@@ -1,14 +1,13 @@
 name: Intent Classification Model Trainer
 description: Component for training an intent classification model using transformer architecture
 inputs:
-  - {name: train_data, type: Dataset}            # Processed training data from preprocessor
-  - {name: val_data, type: Dataset}              # Processed validation data from preprocessor
-  - {name: preprocessing_metadata, type: String}  # Metadata from preprocessor
-  - {name: intent_mapping, type: String}         # Intent mapping from preprocessor
+  - {name: train_data, type: Dataset}
+  - {name: val_data, type: Dataset}
+  - {name: preprocessing_metadata, type: String}
+  - {name: intent_mapping, type: String}
   - {name: text_column, type: String, default: "processed_text"}
   - {name: intent_column, type: String, default: "intent_encoded"}
   - {name: model_name, type: String, default: "bert-base-uncased"}
-  # Model hyperparameters
   - {name: dropout, type: Float, default: 0.5}
   - {name: hidden_size, type: Integer, default: 768}
   - {name: freeze_layers, type: Integer, default: 6}
@@ -20,13 +19,13 @@ inputs:
   - {name: epochs, type: Integer, default: 10}
 
 outputs:
-  - {name: model_artifacts, type: Directory}      # Directory containing saved model files
-  - {name: training_metadata, type: String}       # Training metadata and metrics
-  - {name: training_log, type: String}           # Training logs
+  - {name: model_artifacts, type: Directory}
+  - {name: training_metadata, type: String}
+  - {name: training_log, type: String}
 
 implementation:
   container:
-    image: ravidocker189/intentmodel:4  # Replace with your actual docker image
+    image: ravidocker189/intentmodel:4
     command: [model_trainer.py,
       "--train-data", {inputPath: train_data},
       "--val-data", {inputPath: val_data},
