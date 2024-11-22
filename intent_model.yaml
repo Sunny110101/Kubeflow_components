@@ -1,32 +1,39 @@
 name: Intent Classification Model Trainer
 description: Component for training an intent classification model using transformer architecture
+metadata:
+  annotations:
+    platform: Kubeflow Pipelines
+    runtime-type: DOCKER
+
 inputs:
-  - {name: train_data, type: Dataset}
-  - {name: val_data, type: Dataset}
-  - {name: preprocessing_metadata, type: String}
-  - {name: intent_mapping, type: String}
-  - {name: text_column, type: String, default: "processed_text"}
-  - {name: intent_column, type: String, default: "intent_encoded"}
-  - {name: model_name, type: String, default: "bert-base-uncased"}
-  - {name: dropout, type: Float, default: 0.5}
-  - {name: hidden_size, type: Integer, default: 768}
-  - {name: freeze_layers, type: Integer, default: 6}
-  - {name: weight_decay, type: Float, default: 0.01}
-  - {name: label_smoothing, type: Float, default: 0.1}
-  - {name: learning_rate, type: Float, default: 0.00001}
-  - {name: batch_size, type: Integer, default: 16}
-  - {name: max_length, type: Integer, default: 128}
-  - {name: epochs, type: Integer, default: 10}
+  - {name: train_data, type: Dataset}  # Output from Data Loader
+  - {name: val_data, type: Dataset}    # Output from Data Loader
+  - {name: preprocessing_metadata, type: String}  # Metadata from preprocessor
+  - {name: intent_mapping, type: String}         # Intent mapping from preprocessor
+  - {name: text_column, type: String, optional: true, default: "processed_text"}
+  - {name: intent_column, type: String, optional: true, default: "intent_encoded"}
+  - {name: model_name, type: String, optional: true, default: "bert-base-uncased"}
+  - {name: dropout, type: Float, optional: true, default: 0.5}
+  - {name: hidden_size, type: Integer, optional: true, default: 768}
+  - {name: freeze_layers, type: Integer, optional: true, default: 6}
+  - {name: weight_decay, type: Float, optional: true, default: 0.01}
+  - {name: label_smoothing, type: Float, optional: true, default: 0.1}
+  - {name: learning_rate, type: Float, optional: true, default: 0.00001}
+  - {name: batch_size, type: Integer, optional: true, default: 16}
+  - {name: max_length, type: Integer, optional: true, default: 128}
+  - {name: epochs, type: Integer, optional: true, default: 10}
 
 outputs:
-  - {name: model_artifacts, type: Directory}
-  - {name: training_metadata, type: String}
-  - {name: training_log, type: String}
+  - {name: model_artifacts, type: Directory}      # Directory containing saved model files
+  - {name: training_metadata, type: String}       # Training metadata and metrics
+  - {name: training_log, type: String}           # Training logs
 
 implementation:
   container:
     image: ravidocker189/intentmodel:4
-    command: [model_trainer.py,
+    command: ["python"]
+    args: [
+      "-u", "model_trainer.py",
       "--train-data", {inputPath: train_data},
       "--val-data", {inputPath: val_data},
       "--preprocessing-metadata", {inputPath: preprocessing_metadata},
