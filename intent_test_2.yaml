@@ -23,7 +23,7 @@ outputs:
   - {name: training_log, type: String}
 implementation:
   container:
-    image: ravidocker189/intentmodel:15
+    image: ravidocker189/intentmodel:16
     command: ["python"]
     args: [
       -u, model_trainer.py,
