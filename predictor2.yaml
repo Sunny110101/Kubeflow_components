@@ -1,7 +1,7 @@
 name: Intent Predictor Component
 description: Component for predicting intents using trained BERT model
 inputs:
-  - {name: model_file, type: string}
+  - {name: model_file, type: String}
   - {name: training_metadata, type: String}
   - {name: training_log, type: String}
   - {name: predict_input_data, type: Dataset}
