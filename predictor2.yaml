@@ -1,28 +1,26 @@
 name: Intent Predictor Component
-description: Component for predicting intents using trained BERT model
+description: Component for predicting intents using trained model
 inputs:
+  - {name: input_data, type: String}
+  - {name: input_type, type: String}
+  - {name: text_column, type: String, optional: true, default: "query"}
   - {name: model_file, type: String}
-  - {name: training_metadata, type: String}
-  - {name: training_log, type: String}
-  - {name: predict_input_data, type: Dataset}
-  - {name: input_type, type: String, default: "file"}
-  - {name: text_column, type: String, default: "processed_text"}
+  - {name: config_file, type: String}
+  - {name: label_mapping, type: String}
 outputs:
-  - {name: predictions, type: JsonObject}
-  - {name: metrics, type: JsonObject}
+  - {name: predictions, type: String}
+  - {name: metrics, type: String}
 implementation:
   container:
-    image: docker.io/floaredor/predictor:latest
+    image: ravidocker189/intentpredictor:1
     command: ["python"]
     args: [
-      -u,predictor.py,
-      "--model-file", {inputPath: model_file},
-      "--config-file", {inputPath: training_metadata},
-      "--label-mapping", {inputPath: training_log},
-      "--input", {inputPath: predict_input_data},
+      -u, predictor.py,
+      "--input", {inputPath: input_data},
       "--input-type", {inputValue: input_type},
       "--text-column", {inputValue: text_column},
-      "--output-paths", 
-      {outputPath: predictions},
-      {outputPath: metrics}
+      "--model-file", {inputPath: model_file},
+      "--config-file", {inputPath: config_file},
+      "--label-mapping", {inputPath: label_mapping},
+      "--output-paths", {outputPath: predictions}, {outputPath: metrics}
     ]
