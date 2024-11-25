@@ -2,8 +2,7 @@ name: Intent Predictor Component
 description: Component for predicting intents using trained BERT model
 inputs:
   - {name: input_data, type: Dataset}
-  - {name: model_file, type: String}           # Now accepts specific file
-  - {name: config_file, type: String}          # Now accepts specific file
+  - {name: model_artifacts, type: Directory}    # Accept full directory
   - {name: label_mapping, type: String}
   - {name: input_type, type: String, default: "file"}
   - {name: text_column, type: String, default: "processed_text"}
@@ -17,8 +16,8 @@ implementation:
     args: [
       "/app/predictor.py",
       "--input", {inputPath: input_data},
-      "--model-file", {inputPath: model_file},    # Use direct file path
-      "--config-file", {inputPath: config_file},  # Use direct file path
+      "--model-file", {inputPath: model_artifacts}/data/model.joblib,      # Reference file in directory
+      "--config-file", {inputPath: model_artifacts}/data/model_config.json, # Reference file in directory
       "--label-mapping", {inputValue: label_mapping},
       "--input-type", {inputValue: input_type},
       "--text-column", {inputValue: text_column},
