@@ -19,7 +19,7 @@ inputs:
   - {name: epochs, type: Integer, optional: true, default: 2}
 outputs:
   - {name: model_file, type: Model}
-  - {name: model_config, type: ModelConfig}
+  - {name: model_config, type: JsonObject}
   - {name: training_metadata, type: String}
   - {name: training_log, type: String}
 implementation:
