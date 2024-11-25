@@ -1,25 +1,25 @@
 name: Intent Predictor Component
 description: Component for predicting intents using trained BERT model
 inputs:
-  - {name: model_file, type: Directory}          # Trained model file
-  - {name: config_file, type: Directory}        # Model configuration
-  - {name: label_mapping, type: Dataset}      # Intent label mapping
-  - {name: input_data, type: Dataset}        # Input text data
-  - {name: input_type, type: String, default: "file"}  # Input type (text or file)
-  - {name: text_column, type: String, default: "processed_text"}  # Column name containing text
+  - {name: model_dir, type: Directory}           # Changed name to be more specific
+  - {name: config_dir, type: Directory}          # Changed name to be more specific 
+  - {name: mapping_data, type: Dataset}          # Changed name
+  - {name: predict_data, type: Dataset}          # Changed name
+  - {name: input_type, type: String, default: "file"}
+  - {name: text_column, type: String, default: "processed_text"}
 outputs:
-  - {name: predictions, type: JsonObject}    # Predictions output
-  - {name: metrics, type: JsonObject}        # Prediction metrics output
+  - {name: predictions, type: JsonObject}
+  - {name: metrics, type: JsonObject}
 implementation:
   container:
     image: docker.io/floaredor/predictor:latest
     command: ["python"]
     args: [
       -u, predict.py,
-      "--model-file", {inputPath: model_file},
-      "--config-file", {inputPath: config_file},
-      "--label-mapping", {inputPath: label_mapping},
-      "--input", {inputPath: input_data},
+      "--model-file", {inputPath: model_dir},
+      "--config-file", {inputPath: config_dir},
+      "--label-mapping", {inputPath: mapping_data},
+      "--input", {inputPath: predict_data},
       "--input-type", {inputValue: input_type},
       "--text-column", {inputValue: text_column},
       "--output-paths", 
