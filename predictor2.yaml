@@ -15,8 +15,8 @@ implementation:
     image: docker.io/floaredor/predictor:latest
     command: ["python"]
     args: [
-      "/app/predictor.py",  # Changed from predict.py to predictor.py
-      "--model-file", {inputPath: model_artifacts},
+      -u,predictor.py,
+      "--model-file", {inputPath: model_file},
       "--config-file", {inputPath: training_metadata},
       "--label-mapping", {inputPath: training_log},
       "--input", {inputPath: predict_input_data},
