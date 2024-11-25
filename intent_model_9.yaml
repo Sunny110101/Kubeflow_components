@@ -27,7 +27,7 @@ implementation:
     image: ravidocker189/intentmodel:12
     command: ["python"]
     args: [
-      -u, model_trainer.py,
+      -u, model_trainer2.py,
       "--train-data", {inputPath: train_data},
       "--val-data", {inputPath: val_data},
       "--preprocessing-metadata", {inputPath: preprocessing_metadata},
