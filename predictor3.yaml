@@ -1,0 +1,28 @@
+name: Intent Predictor Component
+description: Component for predicting intents using trained BERT model
+inputs:
+  - {name: model_file, type: String}
+  - {name: training_metadata, type: String}
+  - {name: training_log, type: String}
+  - {name: predict_input_data, type: Dataset}
+  - {name: input_type, type: String, default: "file"}
+  - {name: text_column, type: String, default: "processed_text"}
+outputs:
+  - {name: predictions, type: JsonObject}
+  - {name: metrics, type: JsonObject}
+implementation:
+  container:
+    image: docker.io/floaredor/predictor:latest
+    command: ["python"]
+    args: [
+      -u,predictor.py,
+      "--model-file", {inputPath: model_file},
+      "--config-file", {inputPath: training_metadata},
+      "--label-mapping", {inputPath: training_log},
+      "--input", {inputPath: predict_input_data},
+      "--input-type", {inputValue: input_type},
+      "--text-column", {inputValue: text_column},
+      "--output-paths", 
+      {outputPath: predictions},
+      {outputPath: metrics}
+    ]
