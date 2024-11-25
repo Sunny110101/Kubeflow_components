@@ -1,0 +1,41 @@
+name: Intent Predictor Component
+description: Component for predicting intents using the trained BERT model
+inputs:
+  # Data inputs
+  - {name: input_data, type: Dataset, description: "Input data for prediction"}
+  - {name: input_type, type: String, default: "file", description: "Type of input (text or file)"}
+  - {name: text_column, type: String, default: "processed_text", description: "Name of text column"}
+  
+  # Model artifacts from trainer
+  - {name: model_artifacts, type: Directory, description: "Model artifacts directory containing model.joblib and config"}
+  - {name: training_metadata, type: JsonObject, description: "Training metadata from model trainer"}
+  
+  # Label mapping from preprocessing
+  - {name: label_mapping, type: Dataset, description: "Intent label mapping CSV file"}
+
+outputs:
+  - {name: predictions, type: JsonObject, description: "Detailed predictions for each input"}
+  - {name: metrics, type: JsonObject, description: "Prediction metrics and statistics"}
+
+implementation:
+  container:
+    image: waleriank/ravi_predictor:revised
+    command: ["python"]
+    args: [
+      -u, predictor.py,
+      # Data inputs
+      "--input", {inputPath: input_data},
+      "--input-type", {inputValue: input_type},
+      "--text-column", {inputValue: text_column},
+      
+      # Model artifacts
+      "--model-file", {inputPath: model_artifacts}
+      
+      # Label mapping
+      "--label-mapping", {inputPath: label_mapping},
+      
+      # Output paths
+      "--output-paths",
+      {outputPath: predictions},
+      {outputPath: metrics}
+    ]
