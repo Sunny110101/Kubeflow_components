@@ -18,8 +18,8 @@ inputs:
   - {name: max_length, type: Integer, optional: true}
   - {name: epochs, type: Integer, optional: true}
 outputs:
-  - {name: model_file, type: Directory}
-  - {name: model_config, type: Directory}
+  - {name: model_file, type: String}
+  - {name: model_config, type: String}
 implementation:
   container:
     image: ravidocker189/intentmodel:19
