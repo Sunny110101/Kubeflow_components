@@ -17,8 +17,8 @@ implementation:
     args: [
       -u,predictor.py,
       "--input", {inputPath: input_data},
-      "--model-file", {inputValue: model_file},
-      "--config-file", {inputValue: config_file},
+      "--model-file", {inputPath: model_file},
+      "--config-file", {inputPath: config_file},
       "--label-mapping", {inputValue: label_mapping},
       "--input-type", {inputValue: input_type},
       "--text-column", {inputValue: text_column},
