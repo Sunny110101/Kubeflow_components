@@ -16,7 +16,7 @@ implementation:
     command: ["python"]
     args: [
       -u, predictor.py,
-      "--model-file", {inputPath: model_artifacts},
+      "--model-file", {inputPath: model_artifacts}/model.joblib,
       "--config-file", {inputPath: training_metadata},  # Using training metadata as config
       "--label-mapping", {inputPath: training_log},     # Using training log for mapping
       "--input", {inputPath: predict_input_data},
