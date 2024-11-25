@@ -12,7 +12,7 @@ outputs:
   - {name: metrics_output, type: JsonObject}        # For metrics JSON output
 implementation:
   container:
-    image: waleriank/ravi_predictor:revised
+    image: docker.io/floaredor/predictor:latest
     command: ["python"]
     args: [
       -u,predictor.py,
