@@ -1,0 +1,19 @@
+{
+  "model_name": "bert-base-uncased",
+  "num_labels": 5,
+  "max_length": 128,
+  "label2id": {
+    "account_related": 0,
+    "billing_payment": 1,
+    "product_info": 2,
+    "returns_refunds": 3,
+    "shipping_delivery": 4
+  },
+  "id2label": {
+    "0": "account_related",
+    "1": "billing_payment",
+    "2": "product_info",
+    "3": "returns_refunds",
+    "4": "shipping_delivery"
+  }
+}
