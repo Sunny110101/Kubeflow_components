@@ -3,7 +3,7 @@ description: Component for predicting intents using trained BERT model
 inputs:
   - {name: input_data, type: Dataset}            # For the CSV input file
   - {name: model_file, type: Directory}             # Path to model.joblib
-  - {name: config_file, type: File}            # Path to model_config.json
+  - {name: config_file, type: Directory}            # Path to model_config.json
   - {name: label_mapping, type: String}          # Path to label mapping file
   - {name: input_type, type: String, default: "file"}  # Matches code's input_type choices
   - {name: text_column, type: String, default: "processed_text"}  # Matches code's default
