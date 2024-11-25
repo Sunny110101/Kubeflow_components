@@ -7,8 +7,8 @@ inputs:
   - {name: intent_mapping, type: String}
   - {name: text_column, type: String, optional: true}
   - {name: intent_column, type: String, optional: true}
-  - {name: model_path, type: String, optional: true}  # Changed from model_name
-  - {name: dropout, type: Float, optional: true}
+  - {name: model_path, type: String, optional: true}
+   - {name: dropout, type: Float, optional: true}
   - {name: hidden_size, type: Integer, optional: true}
   - {name: freeze_layers, type: Integer, optional: true}
   - {name: weight_decay, type: Float, optional: true}
@@ -18,9 +18,7 @@ inputs:
   - {name: max_length, type: Integer, optional: true}
   - {name: epochs, type: Integer, optional: true}
 outputs:
-  - {name: model_file, type: String}        # Changed to expose specific file
-  - {name: config_file, type: String}      # Changed to expose specific file
-  - {name: model_artifacts, type: Directory}  # Keep this for full directory if needed
+  - {name: model_artifacts, type: Directory}    # Keep only this directory output
   - {name: training_metadata, type: String}
   - {name: training_log, type: String}
 implementation:
@@ -46,11 +44,6 @@ implementation:
       "--max-length", {inputValue: max_length},
       "--epochs", {inputValue: epochs},
       "--output-dir", {outputPath: model_artifacts},
-      "--model-file", {outputPath: model_file},     # Will be model.joblib
-      "--config-file", {outputPath: config_file},   # Will be model_config.json
       "--training-metadata", {outputPath: training_metadata},
       "--training-log", {outputPath: training_log}
     ]
-    fileOutputs:
-      model_file: /tmp/outputs/model_artifacts/data/model.joblib
-      config_file: /tmp/outputs/model_artifacts/data/model_config.json
