@@ -12,7 +12,7 @@ outputs:
   - {name: metrics, type: String}
 implementation:
   container:
-    image: ravidocker189/intentpredictor:1
+    image: docker.io/floaredor/predictor:latest 
     command: ["python"]
     args: [
       -u, predictor.py,
