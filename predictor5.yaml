@@ -1,0 +1,28 @@
+name: Intent Predictor Component
+description: Component for predicting intents using trained BERT model
+inputs:
+  - {name: input_data, type: Dataset}            # For the CSV input file
+  - {name: model_file, type: String}             # Path to model.joblib
+  - {name: config_file, type: String}            # Path to model_config.json
+  - {name: label_mapping, type: String}          # Path to label mapping file
+  - {name: input_type, type: String, default: "file"}  # Matches code's input_type choices
+  - {name: text_column, type: String, default: "processed_text"}  # Matches code's default
+outputs:
+  - {name: predictions_output, type: JsonObject}    # For predictions JSON output
+  - {name: metrics_output, type: JsonObject}        # For metrics JSON output
+implementation:
+  container:
+    image: your-docker-image:tag
+    command: ["python"]
+    args: [
+      -u,predictor.py,
+      "--input", {inputPath: input_data},
+      "--model-file", {inputValue: model_file},
+      "--config-file", {inputValue: config_file},
+      "--label-mapping", {inputValue: label_mapping},
+      "--input-type", {inputValue: input_type},
+      "--text-column", {inputValue: text_column},
+      "--output-paths",
+      {outputPath: predictions_output},
+      {outputPath: metrics_output}
+    ]
