@@ -18,8 +18,8 @@ inputs:
   - {name: max_length, type: Integer, optional: true, default: 128}
   - {name: epochs, type: Integer, optional: true, default: 2}
 outputs:
-  - {name: model_file, type: Model}
-  - {name: model_config, type: JsonObject}
+  - {name: model_file, type: Directory}
+  - {name: model_config, type: Directory}
   - {name: training_metadata, type: String}
   - {name: training_log, type: String}
 implementation:
