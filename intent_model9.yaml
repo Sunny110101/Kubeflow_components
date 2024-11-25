@@ -5,18 +5,18 @@ inputs:
   - {name: val_data, type: Dataset}
   - {name: preprocessing_metadata, type: String}
   - {name: intent_mapping, type: String}
-  - {name: text_column, type: String, optional: true, default: "processed_query"}
-  - {name: intent_column, type: String, optional: true, default: "intent_encoded"}
-  - {name: model_path, type: String, optional: true, default: "/app/models/bert-base-uncased"}
-  - {name: dropout, type: Float, optional: true, default: 0.5}
-  - {name: hidden_size, type: Integer, optional: true, default: 768}
-  - {name: freeze_layers, type: Integer, optional: true, default: 6}
-  - {name: weight_decay, type: Float, optional: true, default: 0.01}
-  - {name: label_smoothing, type: Float, optional: true, default: 0.1}
-  - {name: learning_rate, type: Float, optional: true, default: 0.00001}
-  - {name: batch_size, type: Integer, optional: true, default: 16}
-  - {name: max_length, type: Integer, optional: true, default: 128}
-  - {name: epochs, type: Integer, optional: true, default: 2}
+  - {name: text_column, type: String, optional: true}
+  - {name: intent_column, type: String, optional: true}
+  - {name: model_path, type: String, optional: true}
+  - {name: dropout, type: Float, optional: true}
+  - {name: hidden_size, type: Integer, optional: true}
+  - {name: freeze_layers, type: Integer, optional: true}
+  - {name: weight_decay, type: Float, optional: true}
+  - {name: label_smoothing, type: Float, optional: true}
+  - {name: learning_rate, type: Float, optional: true}
+  - {name: batch_size, type: Integer, optional: true}
+  - {name: max_length, type: Integer, optional: true}
+  - {name: epochs, type: Integer, optional: true}
 outputs:
   - {name: model_file, type: Directory}
   - {name: model_config, type: Directory}
