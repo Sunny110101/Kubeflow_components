@@ -1,28 +1,28 @@
 name: Intent Predictor Component
 description: Component for predicting intents using trained BERT model
 inputs:
-  - {name: predictor_model_input, type: Directory}     # Changed name to be very specific
-  - {name: predictor_config_input, type: Directory}    # Changed name to be very specific
-  - {name: predictor_mapping_input, type: Dataset}     # Changed name to be very specific
-  - {name: predictor_data_input, type: Dataset}        # Changed name to be very specific
+  - {name: model_artifacts, type: Directory}         # Matches trainer output name
+  - {name: training_metadata, type: String}          # Matches trainer output name
+  - {name: training_log, type: String}              # Matches trainer output name
+  - {name: predict_input_data, type: Dataset}        # New input for prediction data
   - {name: input_type, type: String, default: "file"}
   - {name: text_column, type: String, default: "processed_text"}
 outputs:
-  - {name: predictor_predictions, type: JsonObject}    # Made output names unique too
-  - {name: predictor_metrics, type: JsonObject}        # Made output names unique too
+  - {name: predictions, type: JsonObject}
+  - {name: metrics, type: JsonObject}
 implementation:
   container:
     image: docker.io/floaredor/predictor:latest
     command: ["python"]
     args: [
       -u, predict.py,
-      "--model-file", {inputPath: predictor_model_input},
-      "--config-file", {inputPath: predictor_config_input},
-      "--label-mapping", {inputPath: predictor_mapping_input},
-      "--input", {inputPath: predictor_data_input},
+      "--model-file", {inputPath: model_artifacts},
+      "--config-file", {inputPath: training_metadata},  # Using training metadata as config
+      "--label-mapping", {inputPath: training_log},     # Using training log for mapping
+      "--input", {inputPath: predict_input_data},
       "--input-type", {inputValue: input_type},
       "--text-column", {inputValue: text_column},
       "--output-paths", 
-      {outputPath: predictor_predictions},
-      {outputPath: predictor_metrics}
+      {outputPath: predictions},
+      {outputPath: metrics}
     ]
