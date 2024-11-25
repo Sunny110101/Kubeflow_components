@@ -15,7 +15,7 @@ implementation:
     image: docker.io/floaredor/predictor:latest
     command: ["python"]
     args: [
-      -u, predict.py,
+      -u, predictor.py,
       "--model-file", {inputPath: model_file},
       "--config-file", {inputPath: config_file},
       "--label-mapping", {inputPath: label_mapping},
