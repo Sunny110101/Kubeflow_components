@@ -12,7 +12,7 @@ outputs:
   - {name: metrics_path, type: String}
 implementation:
   container:
-    image: waleriank/ravi_new:3
+    image: waleriank/ravi_new:4
     command: ["python"]
     args: [
       -u,predictor.py,
