@@ -1,0 +1,24 @@
+name: Intent Predictor Component
+description: Component for predicting intents using trained model
+inputs:
+  - {name: input_data, type: String}  # test.csv
+  - {name: input_type, type: String}  # file
+  - {name: text_column, type: String, default: "query"}  # query
+  - {name: model_file, type: String}  # model.joblib path
+  - {name: label_mapping, type: String}  # label mapping csv path
+outputs:
+  - {name: predictions_path, type: String}  # predictions.json
+  - {name: metrics_path, type: String}  # metrics.json
+implementation:
+  container:
+    image: waleriank/ravi_new:2
+    command: ["python"]
+    args: [
+      "src/predictor.py",
+      "--input", {inputPath: input_data},
+      "--input-type", {inputValue: input_type},
+      "--text-column", {inputValue: text_column},
+      "--model-file", {inputPath: model_file},
+      "--label-mapping", {inputPath: label_mapping},
+      "--output-paths", {outputPath: predictions_path}, {outputPath: metrics_path}
+    ]
