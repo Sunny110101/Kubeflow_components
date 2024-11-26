@@ -14,7 +14,7 @@ implementation:
     image: waleriank/ravi_new:2
     command: ["python"]
     args: [
-      "src/predictor.py",
+      -u,predictor.py,
       "--input", {inputPath: input_data},
       "--input-type", {inputValue: input_type},
       "--text-column", {inputValue: text_column},
