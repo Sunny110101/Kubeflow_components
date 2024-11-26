@@ -16,7 +16,7 @@ implementation:
     command: ["python"]
     args: [
       -u,predictor.py,
-      "--input", {inputPath: input_data},
+      "--input", {inputValue: input_data},
       "--input-type", {inputValue: input_type},
       "--text-column", {inputValue: text_column},
       "--model-file", {inputPath: model_file},
