@@ -2,10 +2,10 @@ name: Serve an Intent Model with KServe
 description: Serve an Intent Classification Model using KServe
 inputs:
   - {name: Action,                    type: String, default: 'create',                            description: 'Action to execute on KServe'}
-  - {name: Model Name,                type: String, default: '',                                  description: 'Name to give to the deployed model'}
-  - {name: Model File,                type: Directory, default: '',                                  description: 'Path to the model file (e.g., intent_model.joblib)'}
-  - {name: Config File,               type: String, default: '',                                  description: 'Path to the model configuration file (e.g., model_config.json)'}
-  - {name: Label Mapping Path,        type: String, default: '',                                  description: 'Path to the label mapping file (e.g., intent_mapping.json)'}
+  - {name: Model Name,                type: String, default: 'intent-predictor',                  description: 'Name to give to the deployed model'}
+  - {name: Model File,                type: String,                                            description: 'Path to the model file (e.g., intent_model.joblib)'}
+  - {name: Config File,               type: String,                                               description: 'Path to the model configuration file (e.g., model_config.json)'}
+  - {name: Label Mapping Path,        type: String,                                               description: 'Path to the label mapping file (e.g., intent_mapping.json)'}
   - {name: Canary Traffic Percent,    type: String, default: '100',                               description: 'The traffic split percentage between the candidate model and the last ready model'}
   - {name: Namespace,                 type: String, default: '',                                  description: 'Kubernetes namespace where the KServe service is deployed.'}
   - {name: Framework,                 type: String, default: '',                                  description: 'Machine Learning Framework for Model Serving.'}
