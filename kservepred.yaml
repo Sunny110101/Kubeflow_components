@@ -26,15 +26,15 @@ outputs:
 
 implementation:
   container:
-    image: waleriank/ravi_kserve:2   # Replace with your actual Docker image name
+    image: waleriank/ravi_kserve:2
     command: ['python']
     args: [
       -u, intent_predictor.py,
       --action,                      {inputValue: Action},
       --model-name,                  {inputValue: Model Name},
-      --model-file,                  {inputValue: Model URI}/intent_model.joblib,
-      --config-file,                 {inputValue: Model URI}/model_config.json,
-      --label-mapping-path,          {inputValue: Model URI}/intent_mapping.json,
+      --model-file,                  {inputValue: Model URI},
+      --config-file,                 {inputValue: Model URI},
+      --label-mapping-path,          {inputValue: Model URI},
       --canary-traffic-percent,      {inputValue: Canary Traffic Percent},
       --namespace,                   {inputValue: Namespace},
       --framework,                   {inputValue: Framework},
