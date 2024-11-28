@@ -3,7 +3,7 @@ description: Serve an Intent Classification Model using KServe
 inputs:
   - {name: Action,                    type: String, default: 'create',                            description: 'Action to execute on KServe'}
   - {name: Model Name,                type: String, default: '',                                  description: 'Name to give to the deployed model'}
-  - {name: Model File,                type: String, default: '',                                  description: 'Path to the model file (e.g., intent_model.joblib)'}
+  - {name: Model File,                type: Directory, default: '',                                  description: 'Path to the model file (e.g., intent_model.joblib)'}
   - {name: Config File,               type: String, default: '',                                  description: 'Path to the model configuration file (e.g., model_config.json)'}
   - {name: Label Mapping Path,        type: String, default: '',                                  description: 'Path to the label mapping file (e.g., intent_mapping.json)'}
   - {name: Canary Traffic Percent,    type: String, default: '100',                               description: 'The traffic split percentage between the candidate model and the last ready model'}
