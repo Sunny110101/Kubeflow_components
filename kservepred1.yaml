@@ -35,9 +35,9 @@ implementation:
   -u, intent_predictor.py,      # Your model serving script
   --action,                        {inputValue: Action},
   --model-name,                    {inputValue: Model Name},
-  --model-file,                    {inputPath: Model File},
-  --config-file,                   {inputPath: Config File},
-  --label-mapping-path,            {inputPath: Label Mapping Path},
+  --model_file,                    {inputPath: Model File},
+  --config_file,                   {inputPath: Config File},
+  --label_mapping_path,            {inputPath: Label Mapping Path},
   --canary-traffic-percent,        {inputValue: Canary Traffic Percent},
   --namespace,                     {inputValue: Namespace},
   --framework,                     {inputValue: Framework},
