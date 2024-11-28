@@ -1,18 +1,25 @@
 name: Serve Intent Prediction Model
 description: Deploy an Intent Classification Model using KServe
 inputs:
-  - {name: Model File,          type: Directory, description: 'Path to the model file (joblib format)'}
+  - {name: Model File,          type: Directory, description: 'Path to the trained model file'}
   - {name: Config File,         type: Directory, description: 'Path to the model configuration file'}
-  - {name: Label Mapping Path,  type: String, description: 'Path to the label mapping file'}
+  - {name: Label Mapping Path,  type: Directory, description: 'Path to the label mapping file'}
+
+outputs:
+  - {name: InferenceService Status, type: Directory, description: 'Status and URL information for the deployed model'}
 
 implementation:
   container:
-    image: waleriank/ravi_kserve:4
-    command: ['python']
+    image: waleriank/ravi_kserve:5
+    command: ['/bin/bash', '-c']
     args: [
-      -u,
-      intent_predictor.py,
-      --model_file,         {inputPath: Model File},
-      --config_file,        {inputPath: Config File},
-      --label_mapping_path, {inputPath: Label Mapping Path}
+      'apt-get update && apt-get install -y curl apt-transport-https ca-certificates &&
+       curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - &&
+       echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list &&
+       apt-get update && apt-get install -y kubectl &&
+       python3 -u intent_predictor.py
+       --model_file {inputPath: Model File}
+       --config_file {inputPath: Config File}
+       --label_mapping_path {inputPath: Label Mapping Path}
+       --output_path {outputPath: InferenceService Status}'
     ]
