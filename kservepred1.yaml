@@ -1,22 +1,18 @@
-name: Serve an Intent Model with KServe
-description: Serve an Intent Classification Model using KServe
+name: Serve Intent Prediction Model
+description: Deploy an Intent Classification Model using KServe
 inputs:
-  - {name: Model File,                type: Directory,                                            description: 'Path to the model file (e.g., intent_model.joblib)'}
-  - {name: Config File,               type: Directory,                                               description: 'Path to the model configuration file (e.g., model_config.json)'}
-  - {name: Label Mapping Path,        type: String,                                               description: 'Path to the label mapping file (e.g., intent_mapping.json)'}
-
-
-outputs:
-  - {name: InferenceService Status,   type: String,                                               description: 'Status JSON output of InferenceService'}
+  - {name: Model File,          type: Directory, description: 'Path to the model file (joblib format)'}
+  - {name: Config File,         type: Directory, description: 'Path to the model configuration file'}
+  - {name: Label Mapping Path,  type: Directory, description: 'Path to the label mapping file'}
 
 implementation:
   container:
     image: waleriank/ravi_kserve:2
     command: ['python']
     args: [
-  -u, intent_predictor.py,      # Your model serving script
-  --model-name,                    {inputValue: Model Name},
-  --model_file,                    {inputPath: Model File},
-  --config_file,                   {inputPath: Config File},
-  --label_mapping_path,            {inputPath: Label Mapping Path},
-]
+      -u,
+      intent_predictor.py,
+      --model_file,         {inputPath: Model File},
+      --config_file,        {inputPath: Config File},
+      --label_mapping_path, {inputPath: Label Mapping Path}
+    ]
