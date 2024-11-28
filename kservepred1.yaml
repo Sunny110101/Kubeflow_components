@@ -2,11 +2,13 @@ name: Serve an Intent Model with KServe
 description: Serve an Intent Classification Model using KServe
 inputs:
   - {name: Action,                    type: String, default: 'create',                            description: 'Action to execute on KServe'}
-  - {name: Model Name,                type: String, default: 'intent-predictor',                  description: 'Name to give to the deployed model'}
-  - {name: Model URI,                 type: String, default: '/mnt/models/',                      description: 'Path of the directory containing the model artifacts (joblib model, config, etc.)'}
+  - {name: Model Name,                type: String, default: '',                                  description: 'Name to give to the deployed model'}
+  - {name: Model File,                type: String, default: '',                                  description: 'Path to the model file (e.g., intent_model.joblib)'}
+  - {name: Config File,               type: String, default: '',                                  description: 'Path to the model configuration file (e.g., model_config.json)'}
+  - {name: Label Mapping Path,        type: String, default: '',                                  description: 'Path to the label mapping file (e.g., intent_mapping.json)'}
   - {name: Canary Traffic Percent,    type: String, default: '100',                               description: 'The traffic split percentage between the candidate model and the last ready model'}
   - {name: Namespace,                 type: String, default: '',                                  description: 'Kubernetes namespace where the KServe service is deployed.'}
-  - {name: Framework,                 type: String, default: 'scikit-learn',                     description: 'Machine Learning Framework for Model Serving (scikit-learn in your case)'}
+  - {name: Framework,                 type: String, default: '',                                  description: 'Machine Learning Framework for Model Serving.'}
   - {name: Runtime Version,           type: String, default: 'latest',                            description: 'Runtime Version of Machine Learning Framework'}
   - {name: Resource Requests,         type: String, default: '{"cpu": "0.5", "memory": "512Mi"}', description: 'CPU and Memory requests for Model Serving'}
   - {name: Resource Limits,           type: String, default: '{"cpu": "1", "memory": "1Gi"}',     description: 'CPU and Memory limits for Model Serving'}
@@ -21,6 +23,7 @@ inputs:
   - {name: Request Timeout,           type: String, default: '60',                                description: "Specifies the number of seconds to wait before timing out a request to the component."}
   - {name: Enable ISVC Status,        type: Bool,   default: 'True',                              description: "Specifies whether to store the inference service status as the output parameter"}
 
+
 outputs:
   - {name: InferenceService Status,   type: String,                                               description: 'Status JSON output of InferenceService'}
 
@@ -29,27 +32,27 @@ implementation:
     image: waleriank/ravi_kserve:2
     command: ['python']
     args: [
-      -u, intent_predictor.py,
-      --action,                      {inputValue: Action},
-      --model-name,                  {inputValue: Model Name},
-      --model-file,                  {inputValue: Model URI},
-      --config-file,                 {inputValue: Model URI},
-      --label-mapping-path,          {inputValue: Model URI},
-      --canary-traffic-percent,      {inputValue: Canary Traffic Percent},
-      --namespace,                   {inputValue: Namespace},
-      --framework,                   {inputValue: Framework},
-      --runtime-version,             {inputValue: Runtime Version},
-      --resource-requests,           {inputValue: Resource Requests},
-      --resource-limits,             {inputValue: Resource Limits},
-      --custom-model-spec,           {inputValue: Custom Model Spec},
-      --autoscaling-target,          {inputValue: Autoscaling Target},
-      --service-account,             {inputValue: Service Account},
-      --enable-istio-sidecar,        {inputValue: Enable Istio Sidecar},
-      --output-path,                 {outputPath: InferenceService Status},
-      --inferenceservice-yaml,       {inputValue: InferenceService YAML},
-      --watch-timeout,               {inputValue: Watch Timeout},
-      --min-replicas,                {inputValue: Min Replicas},
-      --max-replicas,                {inputValue: Max Replicas},
-      --request-timeout,             {inputValue: Request Timeout},
-      --enable-isvc-status,          {inputValue: Enable ISVC Status}
-    ]
+  -u, intent_predictor.py,      # Your model serving script
+  --action,                        {inputValue: Action},
+  --model-name,                    {inputValue: Model Name},
+  --model-file,                    {inputPath: Model File},
+  --config-file,                   {inputPath: Config File},
+  --label-mapping-path,            {inputPath: Label Mapping Path},
+  --canary-traffic-percent,        {inputValue: Canary Traffic Percent},
+  --namespace,                     {inputValue: Namespace},
+  --framework,                     {inputValue: Framework},
+  --runtime-version,               {inputValue: Runtime Version},
+  --resource-requests,             {inputValue: Resource Requests},
+  --resource-limits,               {inputValue: Resource Limits},
+  --custom-model-spec,             {inputValue: Custom Model Spec},
+  --autoscaling-target,            {inputValue: Autoscaling Target},
+  --service-account,               {inputValue: Service Account},
+  --enable-istio-sidecar,          {inputValue: Enable Istio Sidecar},
+  --output-path,                   {outputPath: InferenceService Status},
+  --inferenceservice-yaml,         {inputValue: InferenceService YAML},
+  --watch-timeout,                 {inputValue: Watch Timeout},
+  --min-replicas,                  {inputValue: Min Replicas},
+  --max-replicas,                  {inputValue: Max Replicas},
+  --request-timeout,               {inputValue: Request Timeout},
+  --enable-isvc-status,            {inputValue: Enable ISVC Status}
+]
