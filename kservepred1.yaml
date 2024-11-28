@@ -3,7 +3,7 @@ description: Deploy an Intent Classification Model using KServe
 inputs:
   - {name: Model File,          type: Directory, description: 'Path to the model file (joblib format)'}
   - {name: Config File,         type: Directory, description: 'Path to the model configuration file'}
-  - {name: Label Mapping Path,  type: Directory, description: 'Path to the label mapping file'}
+  - {name: Label Mapping Path,  type: String, description: 'Path to the label mapping file'}
 
 implementation:
   container:
