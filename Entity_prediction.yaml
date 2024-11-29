@@ -1,0 +1,21 @@
+name: Entity Predictor Component
+description: Component for predicting entities and topics from text documents using transformer-based NER
+inputs:
+  - {name: input_file, type: String, description: 'Path to input JSON file containing documents', optional: false}
+  - {name: batch_size, type: Integer, default: '32', description: 'Batch size for processing', optional: true}
+  - {name: model_path, type: String, default: 'dslim/bert-base-NER', description: 'Path to NER model or model name', optional: true}
+outputs:
+  - {name: predictions_file, type: String, description: 'Output JSON file containing entity and topic predictions'}
+  - {name: log_file, type: String, description: 'Processing logs and statistics'}
+implementation:
+  container:
+    image: ravidocker189/entity_pred:1
+    command: ["python"]
+    args: [
+      -u, entitymodelpredictor.py,
+      "--input-file", {inputValue: input_file},
+      "--output-file", {outputPath: predictions_file},
+      "--batch-size", {inputValue: batch_size},
+      "--model-path", {inputValue: model_path},
+      "--log-file", {outputPath: log_file}
+    ]
