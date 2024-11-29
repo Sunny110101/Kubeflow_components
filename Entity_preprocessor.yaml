@@ -16,7 +16,7 @@ implementation:
       "--input", {inputValue: input_data},
       "--input-type", {inputValue: input_type},
       "--text-column", {inputValue: text_column},
-      "--output-paths",
+      "--output-dir",
       {outputPath: embeddings_file},
       {outputPath: data_file}
     ]
