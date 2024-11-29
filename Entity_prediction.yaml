@@ -13,7 +13,7 @@ implementation:
     command: ["python"]
     args: [
       -u, entitymodelpredictor.py,
-      "--input-file", {inputValue: input_file},
+      "--input-file", {inputPath: input_file},
       "--output-file", {outputPath: predictions_file},
       "--batch-size", {inputValue: batch_size},
       "--model-path", {inputValue: model_path},
