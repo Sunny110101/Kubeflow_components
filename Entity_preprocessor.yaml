@@ -12,7 +12,7 @@ implementation:
     image: waleriank/ravi_entity:4
     command: ["python"]
     args: [
-      -u, preprocessor.py,
+      -u, entity_preprocessor.py,
       "--input", {inputValue: input_data},
       "--input-type", {inputValue: input_type},
       "--text-column", {inputValue: text_column},
