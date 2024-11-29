@@ -4,8 +4,8 @@ inputs:
   - {name: input_data, type: String}
   - {name: input_type, type: String}
   - {name: text_column, type: String, default: "query"}
-  - {name: model_file, type: String}
-  - {name: config_file, type: String}  # Added config file input
+  - {name: model_file, type: Directory}
+  - {name: config_file, type: Directory}  # Added config file input
   - {name: label_mapping, type: String, optional: true}
 outputs:
   - {name: predictions_path, type: String}
