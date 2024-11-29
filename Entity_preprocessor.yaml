@@ -16,9 +16,7 @@ implementation:
       "--input", {inputValue: input_data},
       "--input-type", {inputValue: input_type},
       "--text-column", {inputValue: text_column},
-      "--output-dir", "/tmp/outputs",
-      "--output-prefix", "batch"
+      "--output-paths",
+      {outputPath: embeddings_file},
+      {outputPath: data_file}
     ]
-    fileOutputs:
-      embeddings_file: /tmp/outputs/batch_embeddings_*.npy
-      data_file: /tmp/outputs/batch_data_*.json
