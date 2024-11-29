@@ -1,11 +1,9 @@
 name: Text Preprocessor Component
 description: Component for preprocessing text data and generating embeddings
 inputs:
-  - {name: input_data, type: Dataset, description: 'Path to input file or raw text', optional: false}
+  - {name: input_data, type: Any, description: 'Path to input file or raw text', optional: false}
   - {name: input_type, type: String, description: 'Type of input (text or file)', optional: false}
   - {name: text_column, type: String, description: 'Column name for text in CSV/JSON input', optional: true}
-  - {name: config_file, type: String, description: 'Path to configuration JSON file', optional: true}
-  - {name: batch_size, type: Integer, default: '32', description: 'Batch size for processing', optional: true}
   - {name: output_prefix, type: String, default: 'batch', description: 'Prefix for output files', optional: true}
 outputs:
   - {name: embeddings_file, type: Dataset, description: 'NumPy file containing text embeddings'}
@@ -17,13 +15,11 @@ implementation:
     command: ["python"]
     args: [
       -u, entity_preprocessor.py,
-      "--input", {inputValue: input_data},
+      "--input", {inputPath: input_data},
       "--input-type", {inputValue: input_type},
       "--text-column", {inputValue: text_column},
-      "--config", {inputPath: config_file},
-      "--batch-size", {inputValue: batch_size},
       "--output-prefix", {inputValue: output_prefix},
-      "--output-paths", 
+      "--output-dir", 
       {outputPath: embeddings_file},
       {outputPath: data_file},
       {outputPath: processing_metadata}
