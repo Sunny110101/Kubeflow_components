@@ -11,7 +11,7 @@ outputs:
   - {name: processing_metadata, type: String, description: 'JSON file containing processing statistics and configuration'}
 implementation:
   container:
-    image: waleriank/ravi_entity:2
+    image: waleriank/ravi_entity:4
     command: ["python"]
     args: [
       -u, entity_preprocessor.py,
