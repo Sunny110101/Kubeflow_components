@@ -1,26 +1,24 @@
 name: Text Preprocessor Component
-description: Component for preprocessing text data and generating embeddings
+description: Component for preprocessing text data and generating sentence transformer embeddings
 inputs:
-  - {name: input_data, type: Any, description: 'Path to input file or raw text', optional: false}
+  - {name: input_data, type: String, description: 'Path to input file or raw text', optional: false}
   - {name: input_type, type: String, description: 'Type of input (text or file)', optional: false}
   - {name: text_column, type: String, description: 'Column name for text in CSV/JSON input', optional: true}
-  - {name: output_prefix, type: String, default: 'batch', description: 'Prefix for output files', optional: true}
 outputs:
   - {name: embeddings_file, type: Dataset, description: 'NumPy file containing text embeddings'}
   - {name: data_file, type: Dataset, description: 'JSON file containing processed texts and metadata'}
-  - {name: processing_metadata, type: String, description: 'JSON file containing processing statistics and configuration'}
 implementation:
   container:
     image: waleriank/ravi_entity:4
     command: ["python"]
     args: [
-      -u, entity_preprocessor.py,
-      "--input", {inputPath: input_data},
+      -u, preprocessor.py,
+      "--input", {inputValue: input_data},
       "--input-type", {inputValue: input_type},
       "--text-column", {inputValue: text_column},
-      "--output-prefix", {inputValue: output_prefix},
-      "--output-dir", 
-      {outputPath: embeddings_file},
-      {outputPath: data_file},
-      {outputPath: processing_metadata}
+      "--output-dir", "/tmp/outputs",
+      "--output-prefix", "batch"
     ]
+    fileOutputs:
+      embeddings_file: /tmp/outputs/batch_embeddings_*.npy
+      data_file: /tmp/outputs/batch_data_*.json
