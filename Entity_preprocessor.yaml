@@ -9,7 +9,7 @@ outputs:
   - {name: data_file, type: Dataset, description: 'JSON file containing processed texts and metadata'}
 implementation:
   container:
-    image: waleriank/ravi_entity:4
+    image: ravidocker189/entity_preprocess:1
     command: ["python"]
     args: [
       -u, entity_preprocessor.py,
