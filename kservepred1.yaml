@@ -10,7 +10,7 @@ outputs:
 
 implementation:
   container:
-    image: waleriank/ravi_kserve:5
+    image: waleriank/ravi_kserve:6
     command: ['/bin/bash', '-c']
     args: [
       'apt-get update && apt-get install -y curl apt-transport-https ca-certificates &&
