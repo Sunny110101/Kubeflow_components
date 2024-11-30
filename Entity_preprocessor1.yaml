@@ -1,7 +1,7 @@
 name: Text Preprocessor Component
-description: Component for preprocessing text data and generating sentence transformer embeddings
+description: Component for preprocessing text data and generating embeddings
 inputs:
-  - {name: input_data, type: Dataset, description: 'Path to input file or raw text', optional: false}
+  - {name: input_data, type: String, description: 'Path to input file or raw text', optional: false}
   - {name: input_type, type: String, description: 'Type of input (text or file)', optional: false}
   - {name: text_column, type: String, description: 'Column name for text in CSV/JSON input', optional: true}
 outputs:
@@ -16,7 +16,7 @@ implementation:
       "--input", {inputValue: input_data},
       "--input-type", {inputValue: input_type},
       "--text-column", {inputValue: text_column},
-      "--output-dir",
+      "--output-paths",
       {outputPath: embeddings_file},
       {outputPath: data_file}
     ]
