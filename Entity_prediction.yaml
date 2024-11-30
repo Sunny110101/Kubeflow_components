@@ -1,21 +1,19 @@
 name: Entity Predictor Component
 description: Component for predicting entities and topics from preprocessed text data
 inputs:
-  - {name: embeddings_file, type: Dataset, description: 'Preprocessed embeddings from previous step'}
-  - {name: data_file, type: Dataset, description: 'Preprocessed text data from previous step'}
-  - {name: batch_size, type: Integer, default: '32', description: 'Batch size for processing', optional: true}
+  - {name: embeddings_file, type: Dataset}
+  - {name: processed_data, type: Dataset}
 outputs:
-  - {name: predictions_file, type: Dataset, description: 'Predictions including entities and topics'}
-  - {name: metrics_file, type: Dataset, description: 'Metrics and statistics of predictions'}
+  - {name: predictions_file, type: Dataset}
+  - {name: metrics_file, type: Dataset}
 implementation:
   container:
-    image: ravidocker189/entity_pred:2
+    image: waleriank/ravi_pred:2
     command: ["python"]
     args: [
       -u, finalentitypredictor.py,
       "--embeddings", {inputPath: embeddings_file},
-      "--data", {inputPath: data_file},
-      "--batch-size", {inputValue: batch_size},
+      "--data", {inputPath: processed_data},
       "--output-paths",
       {outputPath: predictions_file},
       {outputPath: metrics_file}
