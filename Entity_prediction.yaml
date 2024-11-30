@@ -12,7 +12,7 @@ implementation:
     image: ravidocker189/entity_pred:2
     command: ["python"]
     args: [
-      -u, predictor.py,
+      -u, finalentitypredictor.py,
       "--embeddings", {inputPath: embeddings_file},
       "--data", {inputPath: data_file},
       "--batch-size", {inputValue: batch_size},
