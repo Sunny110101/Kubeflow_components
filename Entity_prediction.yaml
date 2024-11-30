@@ -8,7 +8,7 @@ outputs:
   - {name: metrics_file, type: Dataset}
 implementation:
   container:
-    image: ravidocker189/entity_pred:14
+    image: ravidocker189/entity_pred:15
     command: ["python"]
     args: [
       -u, finalentitypredictor.py,
