@@ -13,7 +13,7 @@ implementation:
     image: ravidocker189/entity_preprocess:19
     command: ["python"]
     args: [
-      -u, text_preprocessor.py,
+      -u, entity_preprocessor.py,
       "--input", {inputValue: input_data},
       "--input-type", {inputValue: input_type},
       "--text-column", {inputValue: text_column},
