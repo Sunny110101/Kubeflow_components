@@ -13,7 +13,7 @@ implementation:
     command: ["python"]
     args: [
       -u, entity_preprocessor.py,
-      "--input", {inputPath: input_data},
+      "--input", {inputValue: input_data},
       "--input-type", {inputValue: input_type},
       "--text-column", {inputValue: text_column},
       "--output-dir",
