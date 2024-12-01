@@ -1,0 +1,22 @@
+name: Hierarchical Auto Tagger
+description: Component for automatically tagging content using semantic similarity and hierarchical taxonomy
+
+inputs:
+  - {name: input_data, type: Dataset, description: "Input JSON file containing text documents to be tagged"}
+  - {name: taxonomy, type: Dataset, description: "JSON file containing taxonomy with categories, tags, and descriptions"}
+
+outputs:
+  - {name: tagged_results, type: Dataset, description: "JSON file containing documents with assigned categories and tags"}
+  - {name: tagging_metrics, type: Dataset, description: "JSON file containing tagging performance metrics"}
+
+implementation:
+  container:
+    image: ravidocker189/autotagger:16
+    command: ["python"]
+    args: [
+      -u, predictor.py,
+      "--input", {inputPath: input_data},
+      "--taxonomy", {inputPath: taxonomy},
+      "--output", {outputPath: tagged_results},
+      "--metrics", {outputPath: tagging_metrics}
+    ]
