@@ -1,5 +1,5 @@
-name: Intent Predictor Component
-description: Component for predicting intents using trained model
+name: Dynamic Data Categorizer Component
+description: Component for dynamic text categorization with training and prediction capabilities
 inputs:
   - {name: input_data, type: String}
   - {name: input_type, type: String}
