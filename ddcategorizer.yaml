@@ -12,7 +12,7 @@ outputs:
   - {name: metrics_path, type: String}
 implementation:
   container:
-    image: ravidocker189/ddcategorizer:4
+    image: ravidocker189/ddcategorizer:5
     command: ["python"]
     args: [
       -u,ddcategorizer.py,
