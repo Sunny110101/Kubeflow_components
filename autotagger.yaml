@@ -11,7 +11,7 @@ outputs:
 
 implementation:
   container:
-    image: ravidocker189/autotagger:16
+    image: ravidocker189/autotagger:8
     command: ["python"]
     args: [
       -u, predictor.py,
