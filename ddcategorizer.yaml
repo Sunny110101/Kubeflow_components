@@ -14,7 +14,7 @@ outputs:
 
 implementation:
   container:
-    image: ravidocker189/ddcategorizer:2
+    image: ravidocker189/ddcategorizer:3
     command: ["python"]
     args: [
       -u, ddcategorizer.py,
