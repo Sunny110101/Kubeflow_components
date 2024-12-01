@@ -14,7 +14,7 @@ implementation:
     image: ravidocker189/autotagger:8
     command: ["python"]
     args: [
-      -u, predictor.py,
+      -u, tagtest2.py,
       "--input", {inputPath: input_data},
       "--taxonomy", {inputPath: taxonomy},
       "--output", {outputPath: tagged_results},
