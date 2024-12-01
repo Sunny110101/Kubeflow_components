@@ -1,0 +1,217 @@
+{
+    "metadata": {
+      "version": "1.0",
+      "last_updated": "2024-11-29",
+      "description": "Enhanced taxonomy for technical content classification with specific focus areas"
+    },
+    "categories": {
+      "artificial_intelligence": {
+        "tags": [
+          "machine learning algorithms",
+          "deep learning frameworks",
+          "neural network architectures",
+          "natural language processing",
+          "computer vision systems",
+          "generative ai models",
+          "reinforcement learning systems",
+          "conversation ai",
+          "autonomous systems",
+          "predictive modeling",
+          "ai ethics",
+          "ai infrastructure",
+          "model training",
+          "ai optimization",
+          "ai deployment"
+        ],
+        "descriptions": [
+          "Advanced artificial intelligence technologies and implementations",
+          "Machine learning systems and deep learning architectures",
+          "AI model development and deployment strategies",
+          "Natural language and computer vision applications",
+          "Autonomous and intelligent system development"
+        ]
+      },
+      "cloud_technology": {
+        "tags": [
+          "cloud platforms",
+          "cloud infrastructure",
+          "distributed computing",
+          "containerization systems",
+          "cloud security protocols",
+          "serverless architectures",
+          "cloud storage solutions",
+          "cloud networking",
+          "multi-cloud strategy",
+          "cloud optimization",
+          "hybrid cloud",
+          "cloud migration",
+          "cloud cost management",
+          "cloud scaling",
+          "cloud monitoring"
+        ],
+        "descriptions": [
+          "Enterprise cloud computing platforms and infrastructure",
+          "Cloud architecture design and implementation",
+          "Distributed and serverless computing systems",
+          "Cloud security and compliance frameworks",
+          "Cloud resource management and optimization"
+        ]
+      },
+      "quantum_computing": {
+        "tags": [
+          "quantum processors",
+          "quantum algorithms",
+          "quantum error correction",
+          "quantum cryptography",
+          "quantum software",
+          "quantum simulation",
+          "quantum networking",
+          "quantum sensors",
+          "quantum optimization",
+          "quantum machine learning",
+          "quantum hardware",
+          "quantum programming",
+          "quantum research",
+          "quantum chemistry",
+          "quantum finance"
+        ],
+        "descriptions": [
+          "Quantum computing hardware and architectures",
+          "Quantum algorithms and software development",
+          "Quantum cryptography and security applications",
+          "Quantum simulation and modeling systems",
+          "Quantum technology research and implementation"
+        ]
+      },
+      "biotechnology": {
+        "tags": [
+          "genetic engineering",
+          "genome sequencing",
+          "bioinformatics",
+          "synthetic biology",
+          "gene therapy",
+          "molecular biology",
+          "drug discovery",
+          "bioprocessing",
+          "cellular engineering",
+          "protein engineering",
+          "biomedical research",
+          "biotechnology patents",
+          "clinical trials",
+          "biotech startups",
+          "regulatory compliance"
+        ],
+        "descriptions": [
+          "Biotechnology research and development",
+          "Genetic engineering and genome technologies",
+          "Bioinformatics and computational biology",
+          "Drug development and clinical applications",
+          "Biotechnology commercialization and regulation"
+        ]
+      },
+      "space_technology": {
+        "tags": [
+          "spacecraft systems",
+          "rocket propulsion",
+          "satellite technology",
+          "space exploration",
+          "space manufacturing",
+          "space communications",
+          "space robotics",
+          "orbital mechanics",
+          "space materials",
+          "space navigation",
+          "mission planning",
+          "space debris",
+          "space mining",
+          "space tourism",
+          "launch systems"
+        ],
+        "descriptions": [
+          "Space exploration technologies and systems",
+          "Spacecraft and satellite development",
+          "Space mission planning and execution",
+          "Space manufacturing and materials",
+          "Commercial space technology applications"
+        ]
+      },
+      "cybersecurity": {
+        "tags": [
+          "network security",
+          "threat detection",
+          "incident response",
+          "encryption systems",
+          "security protocols",
+          "penetration testing",
+          "vulnerability assessment",
+          "security compliance",
+          "zero trust architecture",
+          "endpoint security",
+          "cloud security",
+          "application security",
+          "security automation",
+          "threat intelligence",
+          "security governance"
+        ],
+        "descriptions": [
+          "Cybersecurity technologies and frameworks",
+          "Network and system security implementations",
+          "Security operations and incident response",
+          "Security compliance and risk management",
+          "Threat detection and prevention systems"
+        ]
+      },
+      "blockchain": {
+        "tags": [
+          "distributed ledger",
+          "smart contracts",
+          "cryptocurrency",
+          "blockchain protocols",
+          "consensus mechanisms",
+          "decentralized systems",
+          "blockchain security",
+          "token economics",
+          "blockchain platforms",
+          "web3 development",
+          "defi systems",
+          "blockchain scaling",
+          "crypto mining",
+          "blockchain governance",
+          "blockchain applications"
+        ],
+        "descriptions": [
+          "Blockchain technology and distributed systems",
+          "Cryptocurrency and digital asset platforms",
+          "Smart contract development and deployment",
+          "Decentralized application architectures",
+          "Blockchain security and governance"
+        ]
+      },
+      "research_development": {
+        "tags": [
+          "scientific research",
+          "experimental design",
+          "research methodology",
+          "data analysis",
+          "research validation",
+          "prototype development",
+          "research collaboration",
+          "innovation process",
+          "technology transfer",
+          "research funding",
+          "patent development",
+          "research ethics",
+          "lab infrastructure",
+          "research tools",
+          "scientific publishing"
+        ],
+        "descriptions": [
+          "Research and development methodologies",
+          "Scientific experimentation and validation",
+          "Technology innovation and transfer",
+          "Research collaboration and funding",
+          "Scientific publication and patenting"
+        ]
+      }
+    }
+  }
