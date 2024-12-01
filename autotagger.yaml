@@ -11,7 +11,7 @@ outputs:
 
 implementation:
   container:
-    image: ravidocker189/autotagger:8
+    image: ravidocker189/autotagger:9
     command: ["python"]
     args: [
       -u, tagtest2.py,
