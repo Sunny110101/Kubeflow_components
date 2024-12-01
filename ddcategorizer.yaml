@@ -1,28 +1,26 @@
-name: Dynamic Data Categorizer Component
-description: Component for dynamic text categorization with training and prediction capabilities
+name: Intent Predictor Component
+description: Component for predicting intents using trained model
 inputs:
   - {name: input_data, type: String}
   - {name: input_type, type: String}
   - {name: text_column, type: String, default: "query"}
   - {name: model_file, type: Directory}
-  - {name: config_file, type: Directory}
-  - {name: label_mapping, type: String, description: "Path to label mapping file"}
-
+  - {name: config_file, type: Directory}  # Added config file input
+  - {name: label_mapping, type: String, optional: true}
 outputs:
-  - {name: predictions_path, type: String, description: "Path for prediction outputs"}
-  - {name: metrics_path, type: String, description: "Path for metrics outputs"}
-
+  - {name: predictions_path, type: String}
+  - {name: metrics_path, type: String}
 implementation:
   container:
     image: ravidocker189/ddcategorizer:4
     command: ["python"]
     args: [
-      -u, ddcategorizer.py,
+      -u,ddcategorizer.py,
       "--input", {inputValue: input_data},
       "--input-type", {inputValue: input_type},
       "--text-column", {inputValue: text_column},
       "--model-file", {inputPath: model_file},
-      "--config-file", {inputPath: config_file},
-      "--label-mapping", {inputValue: label_mapping},
+      "--config-file", {inputPath: config_file},  # Added config file argument
+      "--label-mapping", {inputPath: label_mapping},
       "--output-paths", {outputPath: predictions_path}, {outputPath: metrics_path}
     ]
