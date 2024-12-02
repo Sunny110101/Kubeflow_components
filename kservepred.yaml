@@ -14,7 +14,7 @@ implementation:
     args: [
       -u, intent_predictor.py,
       '--model_file', {inputPath: Model File},
-      '--model_name', {inputValue: Model Name}
+      '--model_name', {inputValue: Model Name},
       '--config_file', {inputPath: Config File},
       '--label_mapping_path', {inputPath: Label Mapping Path},
       '--output_path', {outputPath: InferenceService Status}
