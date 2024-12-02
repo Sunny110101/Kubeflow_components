@@ -11,7 +11,7 @@ implementation:
     image: ravidocker189/kserve_intent:1
     command: [python3]
     args: [
-      '-u', 'intent_predictor.py',
+      -u, intent_predictor.py,
       '--model_file', {inputPath: Model File},
       '--config_file', {inputPath: Config File},
       '--label_mapping_path', {inputPath: Label Mapping Path},
