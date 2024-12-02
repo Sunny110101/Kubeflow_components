@@ -2,16 +2,18 @@ name: Serve Intent Prediction Model
 description: Deploy an Intent Classification Model using KServe
 inputs:
   - {name: Model File, type: Directory, description: 'Path to the trained model file'}
+  - {name: Model Name, type: String, description: 'Model Name'}
   - {name: Config File, type: Directory, description: 'Path to the model configuration file'}
   - {name: Label Mapping Path, type: String, description: 'Path to the label mapping file'}
 outputs:
   - {name: InferenceService Status, type: Directory, description: 'Status and URL information for the deployed model'}
 implementation:
   container:
-    image: ravidocker189/kserve_intent:4
+    image: ravidocker189/kserve_intent:6
     command: [python3]
     args: [
       -u, intent_predictor.py,
+      '--model_name', {inputValue: Model Name}
       '--model_file', {inputPath: Model File},
       '--config_file', {inputPath: Config File},
       '--label_mapping_path', {inputPath: Label Mapping Path},
