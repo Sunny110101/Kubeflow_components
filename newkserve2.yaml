@@ -8,8 +8,6 @@ inputs:
   - {name: text_column, type: String, description: "Path to intent mapping JSON"}
   - {name: intent_column, type: String, description: "Path to intent mapping JSON"}
   - {name: model_path, type: String, description: "Path to pre-trained model"}
-  - {name: model_file, type: String, description: "Path to save trained model"}
-  - {name: model_config, type: String, description: "Path to save model configuration"}
   - {name: deploy, type: Boolean, description: "Whether to deploy model after training"}
   - {name: model_name, type: String, description: "Name for the deployed model service"}
   - {name: namespace, type: String, description: "Kubernetes namespace for deployment"}
@@ -23,8 +21,8 @@ inputs:
   - {name: max_length, type: Integer, description: "Learning rate"}
   - {name: epochs, type: Integer, description: "Number of training epochs"} 
 outputs:
-  - {name: model_output, type: Directory, description: "Path to saved model file"}
-  - {name: model_config_output, type: Directory, description: "Path to saved model configuration"}
+  - {name: model_file, type: Directory, description: "Path to saved model file"}
+  - {name: model_config, type: Directory, description: "Path to saved model configuration"}
   - {name: service_url, type: String, description: "URL of the deployed model service"}
 implementation:
   container:
@@ -39,8 +37,6 @@ implementation:
       --text-column, {inputValue: text_column},
       --intent-column, {inputValue: intent_column},
       --model-path, {inputValue: model_path},
-      --model-file, {inputValue: model_file},
-      --model-config, {inputValue: model_config},
       --deploy, {inputValue: deploy},
       --model-name, {inputValue: model_name},
       --namespace, {inputValue: namespace},
@@ -53,7 +49,7 @@ implementation:
       --batch-size, {inputValue: batch_size},
       --max-length, {inputValue: max_length},
       --epochs, {inputValue: epochs}
-      "--model-output", {outputPath: model_output},
-      "--model-config-config", {outputPath: model_config_output},
+      "--model-output", {outputPath: model_filer},
+      "--model-config-config", {outputPath: model_config},
       "--service-url", {outputPath: service_url}
     ]
