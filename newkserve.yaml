@@ -1,19 +1,29 @@
 name: intent_classification_training
 description: Train intent classification model using BERT and deploy with KServe
 inputs:
-  - {name: train_data, type: String, description: "Path to training data CSV"}
-  - {name: val_data, type: String, description: "Path to validation data CSV"}
+  - {name: train_data, type: Dataset, description: "Path to training data CSV"}
+  - {name: val_data, type: Dataset, description: "Path to validation data CSV"}
   - {name: preprocessing_metadata, type: String, description: "Path to preprocessing metadata JSON"}
   - {name: intent_mapping, type: String, description: "Path to intent mapping JSON"}
+  - {name: text_column, type: String, description: "Path to intent mapping JSON"}
+  - {name: intent_column, type: String, description: "Path to intent mapping JSON"}
   - {name: model_path, type: String, description: "Path to pre-trained model", default: "/app/models/bert-base-uncased"}
   - {name: model_file, type: String, description: "Path to save trained model"}
   - {name: model_config, type: String, description: "Path to save model configuration"}
   - {name: deploy, type: Boolean, description: "Whether to deploy model after training", default: "True"}
   - {name: model_name, type: String, description: "Name for the deployed model service", default: "intent-classifier"}
-  - {name: namespace, type: String, description: "Kubernetes namespace for deployment", default: "default"}
-  - {name: epochs, type: Integer, description: "Number of training epochs", default: 2}
-  - {name: batch_size, type: Integer, description: "Training batch size", default: 16}
+  - {name: namespace, type: String, description: "Kubernetes namespace for deployment", default: "kserve-test"}
+  - {name: dropout, type: Float, default: 0.5}
+  - {name: hidden_size, type: Integer, default: 768}
+  - {name: freeze_layers, type: Integer, default: 6}
+  - {name: weight_decay, type: Float, default: 0.01}
+  - {name: label_smoothening, type: Float, default: 0.1}
   - {name: learning_rate, type: Float, description: "Learning rate", default: 0.00001}
+  - {name: batch_size, type: Integer, description: "Training batch size", default: 16}
+  - {name: max_length, type: Integer, description: "Learning rate", default: 128}
+  - {name: epochs, type: Integer, description: "Number of training epochs", default: 1}
+  
+  
 outputs:
   - {name: model_output, type: String, description: "Path to saved model file"}
   - {name: model_config_output, type: String, description: "Path to saved model configuration"}
@@ -24,25 +34,28 @@ implementation:
     command: [python]
     args: [
       -u,intent_predictor.py,
-      --train-data, {inputValue: train_data},
-      --val-data, {inputValue: val_data},
-      --preprocessing-metadata, {inputValue: preprocessing_metadata},
+      --train-data, {inputPath: train_data},
+      --val-data, {inputPath: val_data},
+      --preprocessing-metadata, {inputPath: preprocessing_metadata},
       --intent-mapping, {inputValue: intent_mapping},
+      --text-column, {inputValue: text_column},
+      --intent-column, {inputValue: intent_column},
       --model-path, {inputValue: model_path},
       --model-file, {inputValue: model_file},
       --model-config, {inputValue: model_config},
       --deploy, {inputValue: deploy},
       --model-name, {inputValue: model_name},
       --namespace, {inputValue: namespace},
-      --epochs, {inputValue: epochs},
-      --batch-size, {inputValue: batch_size},
+      --dropout, {inputValue: dropout},
+      --hidden-size, {inputValue: hidden_size},
+      --freeze-layers, {inputValue: freeze_layers},
+      --weight-decay, {inputValue: weight_decay},
+      --label-smoothing, {inputValue: label_smoothening},
       --learning-rate, {inputValue: learning_rate}
+      --batch-size, {inputValue: batch_size},
+      --max-length, {inputValue: max_length},
+      --epochs, {inputValue: epochs}
     ]
     env:
       - {name: MLFLOW_TRACKING_URI, value: "http://mlflow-service:5000"}
       - {name: MLFLOW_EXPERIMENT_ID, value: "intent-classification"}
-    resources:
-      requests:
-        {memory: "4Gi", cpu: "2"}
-      limits:
-        {memory: "8Gi", cpu: "4"}
