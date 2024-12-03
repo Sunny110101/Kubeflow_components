@@ -21,8 +21,7 @@ inputs:
   - {name: learning_rate, type: Float, description: "Learning rate"}
   - {name: batch_size, type: Integer, description: "Training batch size"}
   - {name: max_length, type: Integer, description: "Learning rate"}
-  - {name: epochs, type: Integer, description: "Number of training epochs"}
-  
+  - {name: epochs, type: Integer, description: "Number of training epochs"} 
 outputs:
   - {name: model_output, type: Directory, description: "Path to saved model file"}
   - {name: model_config_output, type: Directory, description: "Path to saved model configuration"}
@@ -54,4 +53,7 @@ implementation:
       --batch-size, {inputValue: batch_size},
       --max-length, {inputValue: max_length},
       --epochs, {inputValue: epochs}
+      "--model-output", {outputPath: model_output},
+      "--model-config-config", {outputPath: model_config_output},
+      "--service-url", {outputPath: service_url}
     ]
