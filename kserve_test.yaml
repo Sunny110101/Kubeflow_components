@@ -1,0 +1,48 @@
+name: intent_classification_training
+description: Train intent classification model using BERT and deploy with KServe
+inputs:
+  - {name: train_data, type: String, description: "Path to training data CSV"}
+  - {name: val_data, type: String, description: "Path to validation data CSV"}
+  - {name: preprocessing_metadata, type: String, description: "Path to preprocessing metadata JSON"}
+  - {name: intent_mapping, type: String, description: "Path to intent mapping JSON"}
+  - {name: model_path, type: String, description: "Path to pre-trained model", default: "/app/models/bert-base-uncased"}
+  - {name: model_file, type: String, description: "Path to save trained model"}
+  - {name: model_config, type: String, description: "Path to save model configuration"}
+  - {name: deploy, type: Boolean, description: "Whether to deploy model after training", default: "True"}
+  - {name: model_name, type: String, description: "Name for the deployed model service", default: "intent-classifier"}
+  - {name: namespace, type: String, description: "Kubernetes namespace for deployment", default: "default"}
+  - {name: epochs, type: Integer, description: "Number of training epochs", default: 2}
+  - {name: batch_size, type: Integer, description: "Training batch size", default: 16}
+  - {name: learning_rate, type: Float, description: "Learning rate", default: 0.00001}
+outputs:
+  - {name: model_output, type: String, description: "Path to saved model file"}
+  - {name: model_config_output, type: String, description: "Path to saved model configuration"}
+  - {name: service_url, type: String, description: "URL of the deployed model service"}
+implementation:
+  container:
+    image: your-registry/intent-classifier-training: ravidocker189/kserve_test:1
+    command: [python]
+    args: [
+      intent_kserve.py,
+      --train-data, {inputValue: train_data},
+      --val-data, {inputValue: val_data},
+      --preprocessing-metadata, {inputValue: preprocessing_metadata},
+      --intent-mapping, {inputValue: intent_mapping},
+      --model-path, {inputValue: model_path},
+      --model-file, {inputValue: model_file},
+      --model-config, {inputValue: model_config},
+      --deploy, {inputValue: deploy},
+      --model-name, {inputValue: model_name},
+      --namespace, {inputValue: namespace},
+      --epochs, {inputValue: epochs},
+      --batch-size, {inputValue: batch_size},
+      --learning-rate, {inputValue: learning_rate}
+    ]
+    env:
+      - {name: MLFLOW_TRACKING_URI, value: "http://mlflow-service:5000"}
+      - {name: MLFLOW_EXPERIMENT_ID, value: "intent-classification"}
+    resources:
+      requests:
+        {memory: "4Gi", cpu: "2"}
+      limits:
+        {memory: "8Gi", cpu: "4"}
