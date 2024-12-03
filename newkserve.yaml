@@ -25,8 +25,8 @@ inputs:
   
   
 outputs:
-  - {name: model_output, type: String, description: "Path to saved model file"}
-  - {name: model_config_output, type: String, description: "Path to saved model configuration"}
+  - {name: model_output, type: Directory, description: "Path to saved model file"}
+  - {name: model_config_output, type: Directory, description: "Path to saved model configuration"}
   - {name: service_url, type: String, description: "URL of the deployed model service"}
 implementation:
   container:
@@ -37,7 +37,7 @@ implementation:
       --train-data, {inputPath: train_data},
       --val-data, {inputPath: val_data},
       --preprocessing-metadata, {inputPath: preprocessing_metadata},
-      --intent-mapping, {inputValue: intent_mapping},
+      --intent-mapping, {inputPath: intent_mapping},
       --text-column, {inputValue: text_column},
       --intent-column, {inputValue: intent_column},
       --model-path, {inputValue: model_path},
@@ -56,6 +56,3 @@ implementation:
       --max-length, {inputValue: max_length},
       --epochs, {inputValue: epochs}
     ]
-    env:
-      - {name: MLFLOW_TRACKING_URI, value: "http://mlflow-service:5000"}
-      - {name: MLFLOW_EXPERIMENT_ID, value: "intent-classification"}
