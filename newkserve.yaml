@@ -7,22 +7,21 @@ inputs:
   - {name: intent_mapping, type: String, description: "Path to intent mapping JSON"}
   - {name: text_column, type: String, description: "Path to intent mapping JSON"}
   - {name: intent_column, type: String, description: "Path to intent mapping JSON"}
-  - {name: model_path, type: String, description: "Path to pre-trained model", default: "/app/models/bert-base-uncased"}
+  - {name: model_path, type: String, description: "Path to pre-trained model"}
   - {name: model_file, type: String, description: "Path to save trained model"}
   - {name: model_config, type: String, description: "Path to save model configuration"}
-  - {name: deploy, type: Boolean, description: "Whether to deploy model after training", default: "True"}
-  - {name: model_name, type: String, description: "Name for the deployed model service", default: "intent-classifier"}
-  - {name: namespace, type: String, description: "Kubernetes namespace for deployment", default: "kserve-test"}
-  - {name: dropout, type: Float, default: 0.5}
-  - {name: hidden_size, type: Integer, default: 768}
-  - {name: freeze_layers, type: Integer, default: 6}
-  - {name: weight_decay, type: Float, default: 0.01}
-  - {name: label_smoothening, type: Float, default: 0.1}
-  - {name: learning_rate, type: Float, description: "Learning rate", default: 0.00001}
-  - {name: batch_size, type: Integer, description: "Training batch size", default: 16}
-  - {name: max_length, type: Integer, description: "Learning rate", default: 128}
-  - {name: epochs, type: Integer, description: "Number of training epochs", default: 1}
-  
+  - {name: deploy, type: Boolean, description: "Whether to deploy model after training"}
+  - {name: model_name, type: String, description: "Name for the deployed model service"}
+  - {name: namespace, type: String, description: "Kubernetes namespace for deployment"}
+  - {name: dropout, type: Float}
+  - {name: hidden_size, type: Integer}
+  - {name: freeze_layers, type: Integer}
+  - {name: weight_decay, type: Float}
+  - {name: label_smoothening, type: Float}
+  - {name: learning_rate, type: Float, description: "Learning rate"}
+  - {name: batch_size, type: Integer, description: "Training batch size"}
+  - {name: max_length, type: Integer, description: "Learning rate"}
+  - {name: epochs, type: Integer, description: "Number of training epochs"}
   
 outputs:
   - {name: model_output, type: Directory, description: "Path to saved model file"}
