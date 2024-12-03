@@ -22,7 +22,7 @@ outputs:
   - {name: model_config, type: Directory}
 implementation:
   container:
-    image: ravidocker189/intentmodel:23
+    image: ravidocker189/intentmodel:24
     command: ["python"]
     args: [
       -u, model_trainer.py,
