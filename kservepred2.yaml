@@ -9,7 +9,7 @@ outputs:
   - {name: InferenceService Status, type: Directory, description: 'Status and URL information for the deployed model'}
 implementation:
   container:
-    image: ravidocker189/kserve_intent:17
+    image: ravidocker189/kserve_intent:18
     command: [python3]
     args: [
       -u, intent_predictor.py,
