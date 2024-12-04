@@ -1193,7 +1193,6 @@ timestamp,user_id,query,intent
 2024-03-27 19:47:02,USER_6444,international shipping query,shipping_delivery
 2024-03-28 00:04:08,USER_7805,battery life of monitor,product_info
 2024-03-28 00:37:22,USER_1074,delivery instructions update,shipping_delivery
-2024-03-28 01:35:50,USER_3437,need to change delivery address,shipping_delivery
 2024-03-28 01:55:55,USER_7966,how do I change my password,account_related
 2024-03-28 02:23:29,USER_9686,what are the features of camera,product_info
 2024-03-28 02:28:39,USER_3628,missed delivery few hours back,shipping_delivery
