@@ -18,14 +18,14 @@ inputs:
   - {name: max_length, type: Integer, optional: true}
   - {name: epochs, type: Integer, optional: true}
 outputs:
-  - {name: pytorch_model, type: Directory}
-  - {name: onnx_model, type: Directory}
-  - {name: tensorflow_model, type: Directory}
-  - {name: sklearn_model, type: Directory}
-  - {name: model_config, type: Directory}
+  - {name: pytorch_output, type: Directory, description: "PyTorch model output directory"}
+  - {name: onnx_output, type: Directory, description: "ONNX model output directory"}
+  - {name: tensorflow_output, type: Directory, description: "TensorFlow model output directory"}
+  - {name: sklearn_output, type: Directory, description: "Scikit-learn model output directory"}
+  - {name: model_config, type: Directory, description: "Model configuration directory"}
 implementation:
   container:
-    image: ravidocker189/intentmodel:36
+    image: ravidocker189/intentmodel:39
     command: ["python"]
     args: [
       -u, model_trainer.py,
@@ -45,6 +45,9 @@ implementation:
       "--batch-size", {inputValue: batch_size},
       "--max-length", {inputValue: max_length},
       "--epochs", {inputValue: epochs},
-      "--output-dir", {outputPath: pytorch_model},
+      "--pytorch-output", {outputPath: pytorch_output},
+      "--onnx-output", {outputPath: onnx_output},
+      "--tensorflow-output", {outputPath: tensorflow_output},
+      "--sklearn-output", {outputPath: sklearn_output},
       "--model-config", {outputPath: model_config}
     ]
