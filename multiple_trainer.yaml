@@ -1,0 +1,50 @@
+name: Model Trainer Component
+description: Component for training intent classification model with multi-format export
+inputs:
+  - {name: train_data, type: Dataset}
+  - {name: val_data, type: Dataset}
+  - {name: preprocessing_metadata, type: String}
+  - {name: intent_mapping, type: String}
+  - {name: text_column, type: String, optional: true}
+  - {name: intent_column, type: String, optional: true}
+  - {name: model_path, type: String, optional: true}
+  - {name: dropout, type: Float, optional: true}
+  - {name: hidden_size, type: Integer, optional: true}
+  - {name: freeze_layers, type: Integer, optional: true}
+  - {name: weight_decay, type: Float, optional: true}
+  - {name: label_smoothing, type: Float, optional: true}
+  - {name: learning_rate, type: Float, optional: true}
+  - {name: batch_size, type: Integer, optional: true}
+  - {name: max_length, type: Integer, optional: true}
+  - {name: epochs, type: Integer, optional: true}
+outputs:
+  - {name: pytorch_model, type: Directory}
+  - {name: onnx_model, type: Directory}
+  - {name: tensorflow_model, type: Directory}
+  - {name: sklearn_model, type: Directory}
+  - {name: model_config, type: Directory}
+implementation:
+  container:
+    image: ravidocker189/intentmodel:36
+    command: ["python"]
+    args: [
+      -u, model_trainer.py,
+      "--train-data", {inputPath: train_data},
+      "--val-data", {inputPath: val_data},
+      "--preprocessing-metadata", {inputPath: preprocessing_metadata},
+      "--intent-mapping", {inputPath: intent_mapping},
+      "--text-column", {inputValue: text_column},
+      "--intent-column", {inputValue: intent_column},
+      "--model-path", {inputValue: model_path},
+      "--dropout", {inputValue: dropout},
+      "--hidden-size", {inputValue: hidden_size},
+      "--freeze-layers", {inputValue: freeze_layers},
+      "--weight-decay", {inputValue: weight_decay},
+      "--label-smoothing", {inputValue: label_smoothing},
+      "--learning-rate", {inputValue: learning_rate},
+      "--batch-size", {inputValue: batch_size},
+      "--max-length", {inputValue: max_length},
+      "--epochs", {inputValue: epochs},
+      "--output-dir", {outputPath: pytorch_model},
+      "--model-config", {outputPath: model_config}
+    ]
