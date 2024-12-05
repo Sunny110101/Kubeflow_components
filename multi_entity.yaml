@@ -13,7 +13,7 @@ outputs:
   - {name: model_config, type: Directory, description: "Model configuration directory"}
 implementation:
   container:
-    image: ravidocker189/entity_pred:30
+    image: ravidocker189/entity_pred:31
     command: ["python"]
     args: [
       -u, finalentitypredictor.py,
