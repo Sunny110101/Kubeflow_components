@@ -3,7 +3,6 @@ timestamp,user_id,query,intent
 2024-01-01 01:08:19,USER_4670,two-factor authentication issue,account_related
 2024-01-01 01:31:13,USER_3069,product comparison needed,product_info
 2024-01-01 02:44:43,USER_9747,payment confirmation needed,billing_payment
-2024-01-01 02:52:09,USER_5479,exchange size/color,returns_refunds
 2024-01-01 05:09:56,USER_6844,technical details for headphones,product_info
 2024-01-01 05:17:41,USER_4938,subscription billing question,billing_payment
 2024-01-01 05:40:03,USER_5488,how to return smartphone,returns_refunds
