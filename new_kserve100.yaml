@@ -3,10 +3,10 @@ description: Deploy Intent Classification Models using KServe with support for m
 inputs:
   - {name: Model Name, type: String, description: 'Name for the deployed model service'}
   - {name: Namespace, type: String, default: 'kserve-test', description: 'Kubernetes namespace for deployment'}
-  - {name: PyTorch URI, type: String, optional: true, description: 'Storage URI for PyTorch model'}
-  - {name: ONNX URI, type: String, optional: true, description: 'Storage URI for ONNX model'}
-  - {name: TensorFlow URI, type: String, optional: true, description: 'Storage URI for TensorFlow model'}
-  - {name: SKLearn URI, type: String, optional: true, description: 'Storage URI for scikit-learn model'}
+  - {name: PyTorch URI, type: Directory, optional: true, description: 'Storage URI for PyTorch model'}
+  - {name: ONNX URI, type: Directory, optional: true, description: 'Storage URI for ONNX model'}
+  - {name: TensorFlow URI, type: Directory, optional: true, description: 'Storage URI for TensorFlow model'}
+  - {name: SKLearn URI, type: Directory, optional: true, description: 'Storage URI for scikit-learn model'}
 outputs:
   - {name: Deployment Status, type: String, description: 'Status of the model deployment'}
   - {name: Service URL, type: String, description: 'URL of the deployed service'}
@@ -20,10 +20,10 @@ implementation:
       -u, intent_kserve.py,
       '--model-name', {inputValue: Model Name},
       '--namespace', {inputValue: Namespace},
-      '--pytorch-uri', {inputValue: PyTorch URI},
-      '--onnx-uri', {inputValue: ONNX URI},
-      '--tensorflow-uri', {inputValue: TensorFlow URI},
-      '--sklearn-uri', {inputValue: SKLearn URI},
+      '--pytorch-uri', {inputPath: PyTorch URI},
+      '--onnx-uri', {inputPath: ONNX URI},
+      '--tensorflow-uri', {inputPath: TensorFlow URI},
+      '--sklearn-uri', {inputPath: SKLearn URI},
       '--output-deployment-status', {outputPath: Deployment Status},
       '--output-service-url', {outputPath: Service URL},
       '--output-metrics', {outputPath: Metrics Path},
