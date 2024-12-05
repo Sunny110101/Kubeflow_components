@@ -10,6 +10,7 @@ outputs:
   - {name: onnx_model, type: Model}
   - {name: tensorflow_model, type: Model}
   - {name: sklearn_model, type: Model}
+  - {name: model_config, type: Directory, description: "Model configuration directory"}
 implementation:
   container:
     image: ravidocker189/entity_pred:21
@@ -22,5 +23,6 @@ implementation:
       "--pytorch-output", {outputPath: pytorch_model},
       "--onnx-output", {outputPath: onnx_model},
       "--tensorflow-output", {outputPath: tensorflow_model},
-      "--sklearn-output", {outputPath: sklearn_model}
+      "--sklearn-output", {outputPath: sklearn_model},
+      "--model-config", {outputPath: model_config}
     ]
