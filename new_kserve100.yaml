@@ -1,21 +1,17 @@
 name: Serve Intent Classification Models
 description: Deploy Intent Classification Models using KServe with support for multiple formats
 inputs:
-  - {name: Model Name, type: String,description: 'Name for the deployed model service'}
-  - {name: Namespace, type: String,default: 'kserve-test',description: 'Kubernetes namespace for deployment'}
-  # Resource Configuration
-  - {name: Min Replicas, type: Integer,default: 1,description: 'Minimum number of replicas'}
-  - {name: Max Replicas, type: Integer,default: 3,description: 'Maximum number of replicas'}
-  - {name: CPU Request, type: String,default: '100m',description: 'CPU request for each replica'}
-  - {name: Memory Request, type: String,default: '1Gi',description: 'Memory request for each replica'}
-  - {name: CPU Limit, type: String,default: '1',description: 'CPU limit for each replica'}
-  - {name: Memory Limit, type: String,default: '2Gi',description: 'Memory limit for each replica'}
-
+  - {name: Model Name, type: String, description: 'Name for the deployed model service'}
+  - {name: Namespace, type: String, default: 'kserve-test', description: 'Kubernetes namespace for deployment'}
+  - {name: PyTorch URI, type: String, optional: true, description: 'Storage URI for PyTorch model'}
+  - {name: ONNX URI, type: String, optional: true, description: 'Storage URI for ONNX model'}
+  - {name: TensorFlow URI, type: String, optional: true, description: 'Storage URI for TensorFlow model'}
+  - {name: SKLearn URI, type: String, optional: true, description: 'Storage URI for scikit-learn model'}
 outputs:
-  - {name: Deployment Status, type: String,description: 'Status of the model deployment'}
-  - {name: Service URL, type: String,description: 'URL of the deployed service'}
-  - {name: Metrics Path, type: String,description: 'Path to deployment metrics and logs'}
-  - {name: Model Info, type: JsonObject,description: 'Information about the deployed model including endpoints and format used'}
+  - {name: Deployment Status, type: String, description: 'Status of the model deployment'}
+  - {name: Service URL, type: String, description: 'URL of the deployed service'}
+  - {name: Metrics Path, type: String, description: 'Path to deployment metrics and logs'}
+  - {name: Model Info, type: JsonObject, description: 'Information about the deployed model including endpoints and format used'}
 implementation:
   container:
     image: ravidocker189/kserve_intent:26
@@ -24,15 +20,12 @@ implementation:
       -u, intent_kserve.py,
       '--model-name', {inputValue: Model Name},
       '--namespace', {inputValue: Namespace},
-      '--min-replicas', {inputValue: Min Replicas},
-      '--max-replicas', {inputValue: Max Replicas},
-      '--cpu-request', {inputValue: CPU Request},
-      '--memory-request', {inputValue: Memory Request},
-      '--cpu-limit', {inputValue: CPU Limit},
-      '--memory-limit', {inputValue: Memory Limit},
+      '--pytorch-uri', {inputValue: PyTorch URI},
+      '--onnx-uri', {inputValue: ONNX URI},
+      '--tensorflow-uri', {inputValue: TensorFlow URI},
+      '--sklearn-uri', {inputValue: SKLearn URI},
       '--output-deployment-status', {outputPath: Deployment Status},
       '--output-service-url', {outputPath: Service URL},
       '--output-metrics', {outputPath: Metrics Path},
       '--output-model-info', {outputPath: Model Info}
     ]
-
