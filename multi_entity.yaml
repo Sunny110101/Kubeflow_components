@@ -1,0 +1,26 @@
+name: Entity Predictor Component
+description: Enhanced component for entity/topic prediction with multi-format model export
+inputs:
+  - {name: embeddings_file, type: Dataset}
+  - {name: processed_data, type: Dataset}
+outputs:
+  - {name: predictions_file, type: Dataset}
+  - {name: metrics_file, type: Dataset}
+  - {name: pytorch_model, type: Model}
+  - {name: onnx_model, type: Model}
+  - {name: tensorflow_model, type: Model}
+  - {name: sklearn_model, type: Model}
+implementation:
+  container:
+    image: ravidocker189/entity_pred:19
+    command: ["python"]
+    args: [
+      -u, finalentitypredictor.py,
+      "--embeddings", {inputPath: embeddings_file},
+      "--data", {inputPath: processed_data},
+      "--output-paths", {outputPath: predictions_file}, {outputPath: metrics_file},
+      "--pytorch-output", {outputPath: pytorch_model},
+      "--onnx-output", {outputPath: onnx_model},
+      "--tensorflow-output", {outputPath: tensorflow_model},
+      "--sklearn-output", {outputPath: sklearn_model}
+    ]
