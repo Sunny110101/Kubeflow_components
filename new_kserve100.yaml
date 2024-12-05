@@ -14,7 +14,7 @@ outputs:
   - {name: Model Info, type: JsonObject, description: 'Information about the deployed model including endpoints and format used'}
 implementation:
   container:
-    image: ravidocker189/kserve_intent:26
+    image: ravidocker189/kserve_intent:27
     command: [python3]
     args: [
       -u, intent_kserve.py,
