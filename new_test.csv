@@ -14,7 +14,6 @@ timestamp,user_id,query,intent
 2024-01-01 11:04:24,USER_3202,payment plan options,billing_payment
 2024-01-01 15:24:24,USER_3621,weekend delivery available?,shipping_delivery
 2024-01-01 17:27:23,USER_7825,product comparison needed,product_info
-2024-01-01 17:46:00,USER_5153,refund timeline,returns_refunds
 2024-01-01 19:47:52,USER_2486,delivery instructions update,shipping_delivery
 2024-01-01 21:35:37,USER_1491,suspicious activity on account,account_related
 2024-01-01 23:10:05,USER_9926,how do I change my password,account_related
