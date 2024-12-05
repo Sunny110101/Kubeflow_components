@@ -12,7 +12,7 @@ outputs:
   - {name: sklearn_model, type: Model}
 implementation:
   container:
-    image: ravidocker189/entity_pred:19
+    image: ravidocker189/entity_pred:20
     command: ["python"]
     args: [
       -u, finalentitypredictor.py,
