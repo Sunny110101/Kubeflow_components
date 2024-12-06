@@ -10,7 +10,7 @@ outputs:
 
 implementation:
   container:
-    image: ravidocker189/prasanth_sentiment:6
+    image: ravidocker189/prasanth_sentiment:7
     command: ["python3"]
     args: [
       "-u", "emotions_tf.py",
