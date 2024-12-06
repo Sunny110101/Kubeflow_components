@@ -1,16 +1,22 @@
 name: Sentiment Analysis Pipeline Tensorflow
-description: Perform sentiment analysis on a given sentence and save the model.
+description: Perform sentiment analysis on a given sentence and save the model in multiple formats.
 inputs:
   - {name: input_sent, type: String, description: 'Input sentence for sentiment analysis'}
 outputs:
-  - {name: output, type: Directory, description: 'Directory containing the saved model and tokenizer'}
+  - {name: pytorch_output, type: Directory, description: 'Directory containing saved PyTorch model and related files'}
+  - {name: onnx_output, type: Directory, description: 'Directory containing saved ONNX model and related files'}
+  - {name: tensorflow_output, type: Directory, description: 'Directory containing saved TensorFlow model and related files'}
+  - {name: model_config, type: File, description: 'JSON file containing model configuration and metadata'}
 
 implementation:
   container:
-    image: waleriank/sentiment_tf:3
+    image: waleriank/sentiment_tf:4
     command: ["python3"]
     args: [
       "-u", "emotions_tf.py",
       "--input_sent", {inputValue: input_sent},
-      "--output", {outputPath: output}
+      "--pytorch_output", {outputPath: pytorch_output},
+      "--onnx_output", {outputPath: onnx_output},
+      "--tensorflow_output", {outputPath: tensorflow_output},
+      "--model_config", {outputPath: model_config}
     ]
