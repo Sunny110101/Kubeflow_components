@@ -1,0 +1,27 @@
+name: Hierarchical Tagger Component
+description: Enhanced tagger with multi-format model export
+inputs:
+  - {name: input_data, type: Dataset}
+  - {name: taxonomy, type: Dataset}
+outputs:
+  - {name: predictions, type: Dataset}
+  - {name: metrics, type: Dataset}
+  - {name: pytorch_model, type: Model}
+  - {name: onnx_model, type: Model}
+  - {name: tensorflow_model, type: Model}
+  - {name: sklearn_model, type: Model}
+implementation:
+  container:
+    image: ravidocker189/autotagger:12
+    command: ["python"]
+    args: [
+      -u, tagtest2.py,
+      "--input", {inputPath: input_data},
+      "--taxonomy", {inputPath: taxonomy},
+      "--output", {outputPath: predictions},
+      "--metrics", {outputPath: metrics},
+      "--pytorch-output", {outputPath: pytorch_model},
+      "--onnx-output", {outputPath: onnx_model},
+      "--tensorflow-output", {outputPath: tensorflow_model},
+      "--sklearn-output", {outputPath: sklearn_model}
+    ]
