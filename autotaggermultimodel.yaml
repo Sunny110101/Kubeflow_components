@@ -12,7 +12,7 @@ outputs:
   - {name: sklearn_model, type: Model}
 implementation:
   container:
-    image: ravidocker189/autotagger:13
+    image: ravidocker189/autotagger:14
     command: ["python"]
     args: [
       -u, tagtest2.py,
