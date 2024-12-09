@@ -19,17 +19,17 @@ container:
 image: ravidocker189/taggingnew:1
 command: ["python"]
 args: [
--u, autotaggernew.py,
-"--train-data", {inputPath: train_data},
-"--val-data", {inputPath: val_data},
-"--text-column", {inputValue: text_column},
-"--label-column", {inputValue: label_column},
-"--max-features", {inputValue: max_features},
-"--max-len", {inputValue: max_len},
-"--embedding-dim", {inputValue: embedding_dim},
-"--dropout", {inputValue: dropout},
-"--learning-rate", {inputValue: learning_rate},
-"--batch-size", {inputValue: batch_size},
-"--epochs", {inputValue: epochs},
-"--model-output", {outputPath: model_output}
-]
+      -u, autotaggernew.py,
+      "--train-data", {inputPath: train_data},
+      "--val-data", {inputPath: val_data},
+      "--text-column", {inputValue: text_column},
+      "--label-column", {inputValue: label_column},
+      "--max-features", {inputValue: max_features},
+      "--max-len", {inputValue: max_len},
+      "--embedding-dim", {inputValue: embedding_dim},
+      "--dropout", {inputValue: dropout},
+      "--learning-rate", {inputValue: learning_rate},
+      "--batch-size", {inputValue: batch_size},
+      "--epochs", {inputValue: epochs},
+      "--model-output", {outputPath: model_output}
+    ]
