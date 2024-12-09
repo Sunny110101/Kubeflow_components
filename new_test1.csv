@@ -7,7 +7,6 @@ timestamp,user_id,query,intent
 2024-01-01 05:09:56,USER_6844,technical details for headphones,product_info
 2024-01-01 05:17:41,USER_4938,subscription billing question,billing_payment
 2024-01-01 05:40:03,USER_5488,how to return smartphone,returns_refunds
-2024-01-01 07:38:39,USER_8611,accepted payment methods,billing_payment
 2024-01-01 08:31:28,USER_4803,international payment issues,billing_payment
 2024-01-01 08:58:17,USER_9285,recover username please,account_related
 2024-01-01 10:59:58,USER_7798,modify automatic payments,billing_payment
