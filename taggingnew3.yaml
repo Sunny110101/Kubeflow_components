@@ -3,15 +3,15 @@ description: TensorFlow-based multi-label text classifier for document classific
 inputs:
   - {name: train_data, type: Dataset}
   - {name: val_data, type: Dataset}
-  - {name: text_column, type: String, default: text, optional: true}
-  - {name: label_column, type: String, default: labels, optional: true}
-  - {name: max_features, type: Integer, default: 20000, optional: true}
-  - {name: max_len, type: Integer, default: 128, description: 'Maximum sequence length', optional: true}
-  - {name: embedding_dim, type: Integer, default: 200, description: 'Embedding dimension size', optional: true}
-  - {name: dropout, type: Float, default: 0.5, description: 'Dropout rate for regularization', optional: true}
-  - {name: learning_rate, type: Float, default: 0.0001, description: 'Learning rate for optimizer', optional: true}
-  - {name: batch_size, type: Integer, default: 32, description: 'Training batch size', optional: true}
-  - {name: epochs, type: Integer, default: 1, description: 'Number of training epochs', optional: true}
+  - {name: text_column, type: String}
+  - {name: label_column, type: String}
+  - {name: max_features, type: Integer}
+  - {name: max_len, type: Integer}
+  - {name: embedding_dim, type: Integer}
+  - {name: dropout, type: Float}
+  - {name: learning_rate, type: Float}
+  - {name: batch_size, type: Integer}
+  - {name: epochs, type: Integer}
 outputs:
   - {name: model_output, type: Dataset, description: 'Directory containing saved model and metadata'}
 implementation:
