@@ -15,10 +15,10 @@ inputs:
 outputs:
  - {name: model_output, type: Dataset, description: 'Directory containing saved model and metadata'}
 implementation:
-container:
-image: ravidocker189/taggingnew:1
-command: ["python"]
-args: [
+  container:
+    image: ravidocker189/taggingnew:1
+    command: ["python"]
+    args: [
       -u, autotaggernew.py,
       "--train-data", {inputPath: train_data},
       "--val-data", {inputPath: val_data},
