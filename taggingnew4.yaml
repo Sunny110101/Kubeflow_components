@@ -16,7 +16,7 @@ outputs:
   - {name: model_output, type: Dataset, description: 'Directory containing saved model and metadata'}
 implementation:
   container:
-    image: ravidocker189/taggingnew:8
+    image: ravidocker189/taggingnew:9
     command: ["python"]
     args: [
       -u, autotaggernew.py,
