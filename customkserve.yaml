@@ -1,0 +1,34 @@
+name: Intent Classifier KServe Component
+description: Serve Intent Classification Models using KServe with custom prediction
+inputs:
+  - {name: Action, type: String, default: 'create', description: 'Action to execute on KServe (create/update/delete)'}
+  - {name: Model Name, type: String, default: 'intent-classifier', description: 'Name to give to the deployed model'}
+  - {name: Image Name, type: String, description: 'Custom predictor image name containing the model serving code'}
+  - {name: Storage URI, type: String, description: 'Path to the storage containing model artifacts (tokenizer, model.pt, and model_info.json)'}
+  - {name: Namespace, type: String, default: 'kubeflow', description: 'Kubernetes namespace where the KServe service is deployed'}
+  - {name: Min Replicas, type: String, default: '1', description: 'Minimum number of InferenceService replicas'}
+  - {name: Max Replicas, type: String, default: '3', description: 'Maximum number of InferenceService replicas'}
+  - {name: Resource Requests, type: String, default: '{"cpu": "0.5", "memory": "512Mi"}', description: 'CPU and Memory requests for Model Serving'}
+  - {name: Resource Limits, type: String, default: '{"cpu": "1", "memory": "1Gi"}', description: 'CPU and Memory limits for Model Serving'}
+  - {name: Watch Timeout, type: String, default: '300', description: 'Timeout seconds for watching until InferenceService becomes ready'}
+  - {name: Enable Istio Sidecar, type: Bool, default: 'True', description: 'Whether to enable istio sidecar injection'}
+  - {name: Max Length, type: String, default: '128', description: 'Maximum sequence length for text processing'}
+
+outputs:
+  - {name: InferenceService Status, type: String, description: 'Status output of InferenceService including URL and conditions'}
+
+implementation:
+  container:
+    image: ravidocker189/customkserve:v1
+    command: ['python']
+    args: [
+      -u, intent_classifier.py,
+      --action, {inputValue: Action},
+      --model-name, {inputValue: Model Name},
+      --image-name, {inputValue: Image Name},
+      --storage-uri, {inputValue: Storage URI},
+      --namespace, {inputValue: Namespace},
+      --min-replicas, {inputValue: Min Replicas},
+      --max-replicas, {inputValue: Max Replicas},
+      --timeout, {inputValue: Watch Timeout}
+    ]
