@@ -30,5 +30,6 @@ implementation:
       --namespace, {inputValue: Namespace},
       --min-replicas, {inputValue: Min Replicas},
       --max-replicas, {inputValue: Max Replicas},
-      --timeout, {inputValue: Watch Timeout}
+      --timeout, {inputValue: Watch Timeout},
+      "--InferenceStatus", {outputPath: InferenceService Status}
     ]
