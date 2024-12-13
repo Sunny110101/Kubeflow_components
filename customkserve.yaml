@@ -22,7 +22,7 @@ implementation:
     image: ravidocker189/customkserve:v1
     command: ['python']
     args: [
-      -u, intent_classifier.py,
+      -u, customkserve.py,
       --action, {inputValue: Action},
       --model-name, {inputValue: Model Name},
       --image-name, {inputValue: Image Name},
